@@ -1,6 +1,65 @@
 # Data
 
+
 ## Description
+
+
+### How are the data collected and by whom?
+We will be using datasets from the U.S. Energy Information Administration (EIA), an agency within the U.S. Department of Energy. The role of the agency is to collect, analyze, and provide access to energy information to the public, industry stakeholders, and policymakers. EIA data is collected through monitoring systems, surveys, and collaboration with industry, state, and federal agencies.
+
+
+### Format of the data, the frequency of updates, dimensions, and any other relevant information:
+We will be using 3 different tables posted on the EIA website with data presented in HTML table format that contains grid reliability metrics of the U.S. Distribution system. These tables are updated annually with the latest data available through 2023. These tables include the following:
+
+
+- Year: from 2013 to 2023
+- Reliability Metrics: SAIDI (System Average Interruption Duration Index), SAIFI (System Average Interruption Frequency Index), and CAIDI (Customer Average Interruption Duration Index). 
+- States: all US states
+- Event type: Categorization of different outage event types
+
+
+The data is sourced from the EIA's Form EIA-861, Annual Electric Power Industry Report.
+
+
+We will also be using an Excel spreadsheet (.xlsx) containing the EIA-860 Annual Electric Generator report. This dataset is also updated annually with the latest release on September 23, 2024, which contains data through 2023. The dataset includes the following:
+
+
+- Years: 1990 to 2023
+- States: All US states
+- Fuel Source: what kind of generator (Natural Gas, Coal, Wind, etc.)
+- Nameplate Capacity: MW Capacity of each fuel source
+
+
+### Data issues:
+
+
+- Since all data sources used are only at the state level, we will manually create ISO groupings when exploring the second question of our analysis
+- We will assume that hydroelectric and nuclear energy provide stable enough renewable integration to be negligible when studying grid reliability, so we will consider only wind and solar throughout our analysis
+
+
+### Importing the data:
+
+
+- The HTML EIA-861 tables can be copy and pasted into Excel documents and the data can be imported into R as a csv.
+- The Excel EIA-860 document can be imported into R as a csv.
+
+
+### Data sources:
+
+
+Reliability Metrics of U.S. Distribution System (EIA-861): 
+
+
+- [Reliability Metrics of US Distribution System](https://www.eia.gov/electricity/annual/html/epa_11_01.html) 
+- [Table 11.4. SAIDI values of U.S. distribution system by state](https://www.eia.gov/electricity/annual/html/epa_11_04.html) 
+- [Table 11.2. Reliability metrics using IEEE of U.S. distribution system by state](https://www.eia.gov/electricity/annual/html/epa_11_02.html) 
+
+
+EIA-860 Annual Electric Generator Report:
+
+
+- [Historical State Data - U.S. Energy Information Administration (EIA)](https://www.eia.gov/electricity/data/state/) 
+
 
 ## Missing value analysis
 
