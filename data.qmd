@@ -66,18 +66,18 @@ EIA-860 Annual Electric Generator Report:
 ### Load necessary libraries
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(tidyverse)
-library(readr)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(readr))
 ```
 
 ### Load data
 
 ```{r}
-data1 <- read_csv('Table1.csv')
-data2 <- read_csv('Table2.csv')
-data4 <- read_csv('Table4.csv')
+data1 <- read_csv('Table1.csv', show_col_types = FALSE)
+data2 <- read_csv('Table2.csv', show_col_types = FALSE)
+data4 <- read_csv('Table4.csv', show_col_types = FALSE)
 ```
 
 ### Prepare data for missing values plot
@@ -110,6 +110,8 @@ ggplot(data1_plot, aes(x = name, y = fct_rev(Year), fill = Missing)) +
   theme_bw()
 ```
 
+Table 11.1 contains "Reliability Metrics of U.S. Distribution System" by year from 2013 to 2023 for multiple reliability metrics and 2 calculation methods. There are no missing values in this table.
+
 #### Table 11.2
 ```{r, fig.width = 10, fig.height = 12}
 ggplot(data2_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
@@ -121,6 +123,8 @@ ggplot(data2_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
   theme_bw()
 ```
 
+Table 11.2 contains "Reliability Metrics Using IEEE of U.S. Distribution System by State" by year for 2022 to 2023 for multiple reliability metrics. The state of Hawaii is missing values for many of these reliability metrics. Hawaii's grid operates very differently to other states' grids so we will choose to exclude Hawaii in our analysis, and rather focus on the continental United States (all states excluding Hawaii). All other states have no missing data in this table.
+
 #### Table 11.4
 ```{r, fig.width = 24, fig.height = 12}
 ggplot(data4_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
@@ -131,3 +135,5 @@ ggplot(data4_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
        y = 'State') +
   theme_bw()
 ```
+
+Table 11.4 contains "SAIDI Values (Minutes Per Year) of U.S. Distribution System by State, 2013 - 2023" (SAIDI is one specific reliability metric). The state of Hawaii is again missing values for many years of data.We will again choose to exclude Hawaii in our analysis, and rather focus on the continental United States (all states excluding Hawaii). Nevada is missing data for the SAIDI value calculated with "Loss of Supply Removed" in 2014. We are planning on using SAIDI metrics that include "All Events" rather than the "Loss of Supply Removed", so this missing value does not cause any issues. All other states have no missing data in this table.
