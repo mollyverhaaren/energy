@@ -6,7 +6,7 @@ execute:
   echo: true
 
 book:
-  title: "ENERGY!!!"
+  title: "Renewable Energy and Grid Reliability"
   author:
     - Margot Genereux (mg4778)
     - Molly Verhaaren (mcv2150)
