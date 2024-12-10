@@ -11,6 +11,7 @@ suppressPackageStartupMessages(library(vcd))
 
 
 
+
 ```{r}
 t4_rbs <- read_csv("T4_ReliabilityByState.csv")
 
@@ -68,6 +69,8 @@ ggplot(data = scatter_state_2023, mapping = aes(x = w_s_pen, y = SAIDI)) +
   theme_minimal()
 ```
 
+No clear pattern from scatterplot by state. Possible that reliability slightly decreases as penetration increases. Look into coloring by region given in tables. Look into coloring by ISO state groupings. Look into other years.
+
 
 
 ```{r}
@@ -106,11 +109,13 @@ ggplot(data = scatter_state_5ly, mapping = aes(x = w_s_pen, y = SAIDI)) +
   geom_point(alpha = .7, size = 3, color = 'darkolivegreen') +
   facet_wrap('year', nrow = 1) +
   scale_x_continuous(labels = scales::percent_format()) +
-  labs(title = "Grid Reliability by Renewable Energy Penetration by State (2019-2023)",
+  labs(title = "Outage Duration by Renewable Energy Penetration by State (2019-2023)",
        x = "Penetration of Energy Generation by Wind and Solar",
-       y = "Grid Reliability (SAIDI)")
+       y = "Outage/Interruption Duration (SAIDI)")
 ```
 
+
+Not a final product graph since she doesn't want time series that don't have time on x-axis, but gives us look at multiple years distributions. Regress on multiple years? Look at earlier years?
 
 
 ```{r}
@@ -122,12 +127,11 @@ data_rbs |>
 ```
 
 
-```{r}
-scatter_state_2023 |>
-  table() |>
-  mosaic()
-```
+Scatterplot by No Major Events
 
+color scatterplot by ISO groupings
+color scatterplot by regions from tables
+color scatterplot by climate region (re: weather events, # of sunny days, inches of rain)
 
-Use thresholds within penetration and reliability to create mosaic
+create mosaic based on thresholds in penetration and reliability
 
