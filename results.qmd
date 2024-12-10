@@ -265,3 +265,6 @@ ggplot(saidi_data, aes(x = Date, y = Daily.SAIDI)) +
 ```
 
 ## The economic case for renewables:
+
+
+
