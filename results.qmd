@@ -13,10 +13,10 @@ suppressPackageStartupMessages(library(viridis))
 
 Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country's total generation capacity in any given year. It highlights: 
 
-- The decline of coal and petroleum-based generation
-- The rise of natural gas
-- The rapid growth of intermittent renewables (wind and solar), especially in the past decade
-- The consistency of other renewables, which include hydroelectric, geothermal, and biomass
+- The decline of coal and petroleum-based generation.
+- The rise of natural gas.
+- The rapid growth of intermittent renewables (wind and solar), especially in the past decade.
+- The consistency of other renewables, which include hydroelectric, geothermal, and biomass.
 
 We focus this analysis on wind and solar electricity generation because they provide clean but intermittent energy (after all, we can't control when the wind is blowing and the sun is shining!). As the U.S. works to reduce carbon emissions and combat climate change, the grid will be more reliant on these intermittent energy sources, so understanding their impact on grid reliability is crucial. 
 
@@ -232,7 +232,7 @@ Each high-disruption states and year can be linked to an of extreme weather even
   - Oregon: [February Ice Storms](https://oregonbusiness.com/more-than-100000-oregon-homes-without-power-some-for-days-after-winter-storms/#:~:text=A%20series%20of%20ice%20storms,snow%20across%20the%20United%20States)
   - Louisiana: [September Hurricane Ida](https://en.wikipedia.org/wiki/Hurricane_Ida)
   
-The news articles and websites linked above tie these weather events to power outages, and the plot below confirms that this daily outage minutes spike in times of extreme weather. The plot shows daily outage metrics in Texas over the course of 2021, with the dates of Winter Storm Uri (February 10-25) highlighted in blue. As we expected, the highest number of outage minutes, by a large measure, lands within these storm days.
+The news articles and websites linked above tie these weather events to power outages, and the plot below confirms that this daily outage minutes spike in times of extreme weather. The plot shows daily outage metrics in Texas over the course of 2021, with the dates of Winter Storm Uri (February 10-25) highlighted in blue. As we expected, the highest number of outage minutes, by a large measure, lands within these storm days. 
 
 ```{r}
 # Read the data
