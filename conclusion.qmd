@@ -7,6 +7,8 @@ suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(readr))
 suppressPackageStartupMessages(library(vcd))
+suppressPackageStartupMessages(library(patchwork))
+suppressPackageStartupMessages(library(gridExtra))
 ```
 
 
@@ -14,8 +16,6 @@ suppressPackageStartupMessages(library(vcd))
 
 ```{r}
 t4_rbs <- read_csv("T4_ReliabilityByState.csv")
-
-t4_rbs
 
 data_rbs <- t4_rbs |>
   pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
@@ -59,79 +59,159 @@ state_pen_2023 <- state_generation_2023 |>
 scatter_state_2023 <- state_pen_2023 |>
   left_join(rbs_2023, by = 'state') |>
   select(state, w_s_pen, SAIDI)
-
-ggplot(data = scatter_state_2023, mapping = aes(x = w_s_pen, y = SAIDI)) +
-  geom_point(alpha = .7, size = 3, color = 'darkolivegreen') +
-  scale_x_continuous(labels = scales::percent_format()) +
-  labs(title = "Grid Reliability by Renewable Energy Penetration by State (2023)",
-       x = "Penetration of Energy Generation by Wind and Solar",
-       y = "Grid Reliability (SAIDI)") +
-  theme_minimal()
 ```
 
 No clear pattern from scatterplot by state. Possible that reliability slightly decreases as penetration increases. Look into coloring by region given in tables. Look into coloring by ISO state groupings. Look into other years.
 
 
-
 ```{r}
-rbs_5ly <- data_rbs |>
+rbs_2023_no_major <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
   filter(Method == 'IEEE',
-         Event_Grouping == 'All Events (With Major Event Days)',
-         Census_Division %in% c('2023', '2022', '2021', '2020', '2019')) |>
-  select(Census_Division, state, SAIDI) |>
-  mutate(year = Census_Division) |>
-  select(-Census_Division)
-```
+         Event_Grouping == 'Without Major Event Days',
+         Census_Division == '2023') |>
+  select(state, SAIDI)
 
+scatter_state_2023_no_major <- state_pen_2023 |>
+  left_join(rbs_2023_no_major, by = 'state') |>
+  select(state, w_s_pen, SAIDI)
 
+rbs_2023_combo <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
+  filter(Method == 'IEEE',
+         Event_Grouping %in% c('Without Major Event Days','All Events (With Major Event Days)'),
+         Census_Division == '2023') |>
+  select(state, SAIDI, Event_Grouping)
 
-```{r}
-state_generation <- read_csv('state_generation.csv')
+scatter_state_2023_combo <- state_pen_2023 |>
+  left_join(rbs_2023_combo, by = 'state') |>
+  select(state, w_s_pen, SAIDI, Event_Grouping)
 
-state_pen_5ly <- state_generation |>
-  filter(year %in% c(2019, 2020, 2021, 2022, 2023)) |>
-  select(year, state, source, generation) |>
-  group_by(year, state, source) |>
-  summarise(generation = sum(generation)) |>
-  pivot_wider(names_from = source, values_from = generation, values_fill= 0) |>
-  mutate(total_gen = coal + natural.gas + other.renewables + petroleum.and.other + solar + wind + nuclear,
-         wind_solar = wind + solar,
-         w_s_pen = wind_solar/total_gen)
-```
-
-
-```{r}
-scatter_state_5ly <- state_pen_5ly |>
-  left_join(rbs_5ly, by = c('year' = 'year','state' = 'state')) |>
-  select(year, state, w_s_pen, SAIDI)
-
-ggplot(data = scatter_state_5ly, mapping = aes(x = w_s_pen, y = SAIDI)) +
-  geom_point(alpha = .7, size = 3, color = 'darkolivegreen') +
-  facet_wrap('year', nrow = 1) +
+plot1 <- ggplot(data = scatter_state_2023_combo, mapping = aes(x = w_s_pen, y = SAIDI)) +
+  geom_point(alpha = .7, size = 3) +
+  coord_cartesian(ylim = c(0,1850)) + 
   scale_x_continuous(labels = scales::percent_format()) +
-  labs(title = "Outage Duration by Renewable Energy Penetration by State (2019-2023)",
-       x = "Penetration of Energy Generation by Wind and Solar",
-       y = "Outage/Interruption Duration (SAIDI)")
+  labs(x = "Energy Generation Penetration by Wind and Solar",
+       y = "Average Outage Duration (SAIDI)") +
+  theme_minimal()
 ```
 
 
-Not a final product graph since she doesn't want time series that don't have time on x-axis, but gives us look at multiple years distributions. Regress on multiple years? Look at earlier years?
+
+
+Create a patchwork subplot that puts unmarked scatterplot left of marked scatterplot
 
 
 ```{r}
-data_rbs |>
-  select(Census_Division, state, SAIDI) |>
-  arrange(state) |>
-  ggplot(mapping = aes(x = Census_Division, y = SAIDI, color = state)) +
-  geom_line()
+plot2 <- ggplot(data = scatter_state_2023_combo, mapping = aes(x = w_s_pen, y = SAIDI, color = Event_Grouping)) +
+  geom_point(alpha = .7, size = 3) +
+  # coord_cartesian(ylim = c(0,1850)) + 
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(x = "Energy Generation Penetration by Wind and Solar",
+       y = "Average Outage Duration (SAIDI)",
+       color = "Outage Event Grouping") +
+  theme_minimal() +
+  theme(legend.position = 'bottom')
 ```
 
 
-Scatterplot by No Major Events
 
-color scatterplot by ISO groupings
-color scatterplot by regions from tables
-color scatterplot by climate region (re: weather events, # of sunny days, inches of rain)
+```{r}
+no_hawaii <-scatter_state_2023_no_major |>
+  filter(state != 'HI')
 
-create mosaic based on thresholds in penetration and reliability
+cc <- cor(no_hawaii$w_s_pen, no_hawaii$SAIDI)
+
+plot3 <- ggplot(data = filter(scatter_state_2023_combo, Event_Grouping == 'Without Major Event Days'), mapping = aes(x = w_s_pen, y = SAIDI)) +
+  geom_point(alpha = .7, size = 3, color = '#31bdc3') +
+  geom_smooth(data = filter(scatter_state_2023_combo, Event_Grouping == 'Without Major Event Days'),
+              method = 'lm',
+              color = '#1d7276') +
+  annotate("text", x = .35, y = 125, label = paste("Correlation:", round(cc, 3))) +
+  coord_cartesian(ylim = c(0, 450)) +
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(x = "Energy Generation Penetration by Wind and Solar",
+       y = "Average Outage Duration (SAIDI)") +
+  theme_minimal()
+```
+
+
+
+
+```{r, fig.width = 12}
+# plot1 + plot2 + plot3
+
+plot2 + plot3 +
+  plot_layout(widths = c(2, 2.3)) +
+  plot_annotation(title = 'Outage Duration by Wind and Solar Penetration \n With and Without Major Events (2023)',
+                  theme = theme(plot.title = element_text(hjust = .5, size = 16)))
+```
+
+
+
+```{r}
+# rbs_5ly <- data_rbs |>
+#   filter(Method == 'IEEE',
+#          Event_Grouping == 'All Events (With Major Event Days)',
+#          Census_Division %in% c('2023', '2022', '2021', '2020', '2019')) |>
+#   select(Census_Division, state, SAIDI) |>
+#   mutate(year = Census_Division) |>
+#   select(-Census_Division)
+# 
+# state_generation <- read_csv('state_generation.csv')
+# 
+# state_pen_5ly <- state_generation |>
+#   filter(year %in% c(2019, 2020, 2021, 2022, 2023)) |>
+#   select(year, state, source, generation) |>
+#   group_by(year, state, source) |>
+#   summarise(generation = sum(generation)) |>
+#   pivot_wider(names_from = source, values_from = generation, values_fill= 0) |>
+#   mutate(total_gen = coal + natural.gas + other.renewables + petroleum.and.other + solar + wind + nuclear,
+#          wind_solar = wind + solar,
+#          w_s_pen = wind_solar/total_gen)
+# 
+# scatter_state_5ly <- state_pen_5ly |>
+#   left_join(rbs_5ly, by = c('year' = 'year','state' = 'state')) |>
+#   select(year, state, w_s_pen, SAIDI)
+# 
+# ggplot(data = scatter_state_5ly, mapping = aes(x = w_s_pen, y = SAIDI)) +
+#   geom_point(alpha = .7, size = 3, color = 'darkolivegreen') +
+#   facet_wrap('year', nrow = 1) +
+#   scale_x_continuous(labels = scales::percent_format()) +
+#   labs(title = "Outage Duration by Renewable Energy Penetration by State (2019-2023)",
+#        x = "Penetration of Energy Generation by Wind and Solar",
+#        y = "Outage/Interruption Duration (SAIDI)")
+```
+
+
+
+```{r}
+all_events_pen_med <- median(scatter_state_2023$w_s_pen)
+
+all_events_SAIDI_med <- median(scatter_state_2023$SAIDI)
+
+all_events_mos <- scatter_state_2023 |>
+  mutate(Penetration = if_else(w_s_pen >= all_events_pen_med, 1, 0),
+         SAIDI = if_else(SAIDI >= all_events_SAIDI_med, 1, 0)) |>
+  select(-w_s_pen)
+
+mosaic(SAIDI ~ Penetration, all_events_mos, direction = c("v", "h"),
+       main = "With Major Events")
+
+
+
+no_major_pen_med <- median(no_hawaii$w_s_pen)
+
+no_major_SAIDI_med <- median(no_hawaii$SAIDI)
+
+no_major_mos <- no_hawaii |>
+  mutate(Penetration = if_else(w_s_pen >= no_major_pen_med, 1, 0),
+         SAIDI = if_else(SAIDI >= no_major_SAIDI_med, 1, 0)) |>
+  select(-w_s_pen)
+
+mosaic(SAIDI ~ Penetration, no_major_mos, direction = c("v", "h"),
+       main = 'Without Major Events')
+```
+
+
 
