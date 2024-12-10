@@ -5,8 +5,11 @@ suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(scales))
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(maps))
+suppressPackageStartupMessages(library(viridis))
 ```
-## Setting the Scene: Renewable Integration in the U.S. Over Time:
+## Setting the Scene: Renewable Integration in the U.S. Over Time
 
 Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country's total generation capacity in any given year. It highlights: 
 
@@ -50,8 +53,9 @@ ggplot(data1_long, aes(x = Year, y = Generation, fill = Energy_Source)) +
   theme_minimal()
 ```
 
-The plot above may make it seem like wind and solar are not responsible for a large portion of the energy generation in the U.S., but if we plot their share of the country's total generation mix from 1990 to 2023, we see the  
-Further, the EIA forecasts this share to keep growing at a very rapid pace through the mid-2030s, and reaching nearly half of the country's electricity generation by 2050.
+The plot above may give the impression that wind and solar currently contribute only a modest portion to the U.S. energy mix. However, when we plot their share of the country's total electricity generation from 1990 to 2023, we see a significant growth trajectory. Starting from near zero contribution in the 1990s, wind and solar now account for 14.1% of total generation as of 2023. This trend is expected to accelerate significantly in the coming decades. According to EIA forecasts, wind and solar are projected to reach nearly 50% of total electricity generation by 2050.
+
+This "Wind & Solar as a Fraction of Total Electricity Generation" metric measures the share of electricity generation coming from intermittent sources, and is often referred to as a percentage value called "Renewable Penetration".
 
 ```{r, fig.width = 10}
 
@@ -104,12 +108,14 @@ ggplot(data2, aes(x = Year, y = Wind_Solar_Fraction)) +
 
 ## Grid Reliability:
 
-Talk about why grid reliability is important, explain reliability metrics
+Grid reliability ensures that electricity is consistently available to meet the needs of homes, businesses, and critical services. As the U.S. transitions to a cleaner energy grid, understanding renewable energy's impact on reliability is very important. The two key metrics the EIA uses to measure grid reliability are CAIDI and SAIDI, which help quantify the frequency and duration of power outages experienced by consumers:
 
 - CAIDI: Customer Average Interruption Duration Index. It is average number of minutes it takes to restore non-momentary electric interruptions.
 - SAIDI: System Average Interruption Duration Index. It is the minutes of non-momentary electric interruptions, per year, the average customer experienced.
 
-Conclusion from this is that reliability is probs much more related to lack of extreme weather events than renewable penetration... could be interesting to track down states with major weather events vs those without and see if there is correlation in what we're seeing here  (good conclusion for the entire project: extreme weather event contributes to lack of reliability much more than renewable integration, makes an even stronger case for the energy transition which can hopefully mitigate or slow down climate change that brings extreme weather) (Can look at winter storm Uri in texas Feb 2021?, California 2022 heatwaves?)
+Higher CAIDI and SAIDI values indicate a less reliable grid, where interruptions/outages are either more frequent, take longer to restore, or both. 
+
+In the plot below, the comparison of reliability metrics on the left (including all major events) and the right (excluding major events) demonstrates a relationship between grid reliability and "major event days", described by the EIA as "any day that exceeds a daily SAIDI threshold". When all major events are included, the plot shows significant spikes in some years: 2017, 2020, and 2021. Conversely, when major events are excluded, the metrics remain relatively stable over time, suggesting that the underlying reliability of the grid is not significantly affected by increasing renewable energy penetration, and is rather driven by the occurrence of these "major events" that we investigate in section 3.5.
 
 ```{r, fig.width = 10}
 
@@ -128,7 +134,7 @@ data3_long <- t1_reliability  |>
 ggplot(data3_long, aes(x = Year, y = Value, color = Metric)) +
   geom_line(linewidth = 1.2) +
   scale_x_continuous(breaks = seq(2013, 2023, 1)) +
-  scale_y_continuous(limits = c(0, NA), expand = c(0, 0)) + 
+  scale_y_continuous(limits = c(0, 550), expand = c(0, 0)) + 
   labs(title = "Reliability Metrics (2013–2023)",
        x = "Year",
        y = "Value",
@@ -136,3 +142,126 @@ ggplot(data3_long, aes(x = Year, y = Value, color = Metric)) +
   facet_wrap(~ `Event_Category`) +
   theme_minimal()
 ```
+
+## Is there any correlation between renewable penetration and grid reliability?:
+
+INSERT MOLLY'S CORRELATION PLOTS
+
+## Is there a geographic explanation?
+
+We want to investigate if any states stand out when we focusing on high SAIDI years, when including all events. In other words, what states are responsible for "Major Events" in high-disruption years. 
+
+By mapping total outage hours across high-disruption years (2017, 2020, 2021), this plot highlights states disproportionately affected by outages. We suspect this is due to extreme weather events such as winter storms and hurricanes, underscoring the intersection of climate resilience and energy grid reliability.
+
+- In 2017: Maine, Vermont, and Florida stand out
+- In 2020: Maine, Connecticut, Mississippi, Alabama, and Louisiana stand out 
+- In 2021: Texas, Oregon, and Louisiana stand out 
+
+To provide a clearer perspective, the outage values are capped at 24 hours, representing a cumulative full day of outages over the course of a year. This approach highlights states with particularly disruptive events while maintaining focus on severe reliability issues. Without capping, we risk losing important granularity, as excessively high values from outlier events could overshadow state-by-state comparisons and trends.
+
+
+```{r, fig.height = 10}
+
+data5 <- read.csv("T4_ReliabilityByState.csv")
+# State abbreviations and full names
+state_abbrev <- tibble(
+  state_full = tolower(state.name),
+  state_abbrev = state.abb
+)
+
+filtered_data5 <- data5 |>
+  filter(Method == "IEEE", 
+         Event_Grouping == "All Events (With Major Event Days)",
+         Census_Division %in% c(2017, 2020, 2021),
+         !is.na(Census_Division)) |>
+  select(-Method, -Event_Grouping, -HI, -AK)
+
+# Reshape the data into a long format
+long_data5 <- filtered_data5 |>
+  pivot_longer(cols = -Census_Division, names_to = "state_abbrev", values_to = "value")
+
+# Convert values from minutes to hours and cap at 24 hours
+long_data5 <- long_data5 |>
+  mutate(value = pmin(value / 60, 24)) 
+
+# Load state geometries
+us_states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
+us_states <- us_states |>
+  mutate(state_full = ID) |>
+  left_join(state_abbrev, by = c("state_full" = "state_full")) 
+
+# Merge data with geometries
+mapped_data <- us_states |>
+  left_join(long_data5, by = c("state_abbrev" = "state_abbrev")) |>
+  filter(state_abbrev != "DC")
+
+# Plot the map with facets for Census Division
+ggplot(data = mapped_data) +
+  geom_sf(aes(fill = value), color = "white", lwd = 0.2) +
+  scale_fill_viridis_c(option = "viridis", na.value = "gray80", limits = c(0, 24)) +
+  labs(title = "U.S. Outage Hours by State in High-Disruption Years",
+       fill = " Total Outage Hours\n (Capped at 24H)") +
+  facet_wrap(~ Census_Division, ncol = 1) + # Facet by Census Division
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank(),
+    strip.text = element_text(size = 12) 
+  )
+```
+
+## Confirming that these standouts are caused by extreme weather events:
+
+Each high-disruption states and year can be linked to an of extreme weather event, such as a winter storm, a hurricane or a tornado. By year, the events are as follows:
+
+- **2017**:
+  - Maine: [October Nor’easter Storm](https://en.wikipedia.org/wiki/October_2017_nor%27easter) 
+  - Vermont: [October Nor’easter Storm](https://en.wikipedia.org/wiki/October_2017_nor%27easter) 
+  - Florida: [September Hurricane Irma](https://www.eia.gov/todayinenergy/detail.php?id=32992#:~:text=Hurricane%20Irma%20struck%20Florida%20on,Florida%20Division%20of%20Emergency%20Management.)
+
+- **2020** 
+  - Maine: [April 12th Snowstorm](https://weather.com/news/news/2020-04-12-maine-power-outages-wind-snowstorm-outages)
+  - Connecticut: [August Tropical Storm Isaias](https://www.theverge.com/21361751/tropical-storm-isaias-power-outages-tristate-utilities-energy-grid)
+  - Mississippi: [Easter Tornado Outbreak](https://en.wikipedia.org/wiki/2020_Easter_tornado_outbreak)
+  - Alabama: [Easter Tornado Outbreak](https://en.wikipedia.org/wiki/2020_Easter_tornado_outbreak)
+  - Louisiana: [Easter Tornado Outbreak](https://en.wikipedia.org/wiki/2020_Easter_tornado_outbreak)
+
+- **2020** 
+  - Texas: [February Winter Storm Uri](https://en.wikipedia.org/wiki/February_13%E2%80%9317,_2021_North_American_winter_storm)
+  - Oregon: [February Ice Storms](https://oregonbusiness.com/more-than-100000-oregon-homes-without-power-some-for-days-after-winter-storms/#:~:text=A%20series%20of%20ice%20storms,snow%20across%20the%20United%20States)
+  - Louisiana: [September Hurricane Ida](https://en.wikipedia.org/wiki/Hurricane_Ida)
+  
+The news articles and websites linked above tie these weather events to power outages, and the plot below confirms that this daily outage minutes spike in times of extreme weather. The plot shows daily outage metrics in Texas over the course of 2021, with the dates of Winter Storm Uri (February 10-25) highlighted in blue. As we expected, the highest number of outage minutes, by a large measure, lands within these storm days.
+
+```{r}
+# Read the data
+saidi_data <- read.csv("Texas_Daily_SAIDI.csv")
+
+# Convert Date column to Date type
+saidi_data$Date <- as.Date(saidi_data$Date, format = "%m/%d/%y")
+
+highlight_period <- data.frame(
+  xmin = as.Date("2021-02-10"),
+  xmax = as.Date("2021-02-25"),
+  ymin = -Inf,
+  ymax = Inf,
+  label = "Winter Storm Uri"
+)
+
+# Plot the data
+ggplot(saidi_data, aes(x = Date, y = Daily.SAIDI)) +
+  geom_rect(data = highlight_period, 
+            aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = label),
+            alpha = 0.8, inherit.aes = FALSE) +
+  scale_fill_manual(name = "", values = c("Winter Storm Uri" = "lightblue")) +
+  geom_line(color = "black", linewidth = .75) +
+  labs(title = "Daily SAIDI (Outage Minutes) in Texas in 2021",
+       x = NULL,
+       y = "SAIDI (Outage Minutes)") +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+```
+
+## The economic case for renewables:
