@@ -1,1 +1,133 @@
 # Conclusion
+
+
+```{r}
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(vcd))
+```
+
+
+
+```{r}
+t4_rbs <- read_csv("T4_ReliabilityByState.csv")
+
+t4_rbs
+
+data_rbs <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
+  filter(Method == 'IEEE',
+         Event_Grouping == 'All Events (With Major Event Days)')
+```
+
+
+
+
+
+```{r}
+rbs_2023 <- data_rbs |>
+  filter(Census_Division == '2023') |>
+  select(state, SAIDI)
+```
+
+
+
+
+```{r}
+state_generation_2023 <- read_csv('state_generation_2023.csv')
+
+state_generation_2023 <- state_generation_2023 |>
+  group_by(state, source) |>
+  summarise(generation = sum(generation))
+```
+
+
+```{r}
+state_pen_2023 <- state_generation_2023 |>
+  pivot_wider(names_from = source, values_from = generation, values_fill = 0) |>
+  mutate(total_gen = coal + natural.gas + other.renewables + petroleum.and.other + solar + wind + nuclear,
+         wind_solar = wind + solar,
+         w_s_pen = wind_solar/total_gen)
+```
+
+
+
+```{r}
+scatter_state_2023 <- state_pen_2023 |>
+  left_join(rbs_2023, by = 'state') |>
+  select(state, w_s_pen, SAIDI)
+
+ggplot(data = scatter_state_2023, mapping = aes(x = w_s_pen, y = SAIDI)) +
+  geom_point(alpha = .7, size = 3, color = 'darkolivegreen') +
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(title = "Grid Reliability by Renewable Energy Penetration by State (2023)",
+       x = "Penetration of Energy Generation by Wind and Solar",
+       y = "Grid Reliability (SAIDI)") +
+  theme_minimal()
+```
+
+
+
+```{r}
+rbs_5ly <- data_rbs |>
+  filter(Method == 'IEEE',
+         Event_Grouping == 'All Events (With Major Event Days)',
+         Census_Division %in% c('2023', '2022', '2021', '2020', '2019')) |>
+  select(Census_Division, state, SAIDI) |>
+  mutate(year = Census_Division) |>
+  select(-Census_Division)
+```
+
+
+
+```{r}
+state_generation <- read_csv('state_generation.csv')
+
+state_pen_5ly <- state_generation |>
+  filter(year %in% c(2019, 2020, 2021, 2022, 2023)) |>
+  select(year, state, source, generation) |>
+  group_by(year, state, source) |>
+  summarise(generation = sum(generation)) |>
+  pivot_wider(names_from = source, values_from = generation, values_fill= 0) |>
+  mutate(total_gen = coal + natural.gas + other.renewables + petroleum.and.other + solar + wind + nuclear,
+         wind_solar = wind + solar,
+         w_s_pen = wind_solar/total_gen)
+```
+
+
+```{r}
+scatter_state_5ly <- state_pen_5ly |>
+  left_join(rbs_5ly, by = c('year' = 'year','state' = 'state')) |>
+  select(year, state, w_s_pen, SAIDI)
+
+ggplot(data = scatter_state_5ly, mapping = aes(x = w_s_pen, y = SAIDI)) +
+  geom_point(alpha = .7, size = 3, color = 'darkolivegreen') +
+  facet_wrap('year', nrow = 1) +
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(title = "Grid Reliability by Renewable Energy Penetration by State (2019-2023)",
+       x = "Penetration of Energy Generation by Wind and Solar",
+       y = "Grid Reliability (SAIDI)")
+```
+
+
+
+```{r}
+data_rbs |>
+  select(Census_Division, state, SAIDI) |>
+  arrange(state) |>
+  ggplot(mapping = aes(x = Census_Division, y = SAIDI, color = state)) +
+  geom_line()
+```
+
+
+```{r}
+scatter_state_2023 |>
+  table() |>
+  mosaic()
+```
+
+
+Use thresholds within penetration and reliability to create mosaic
+
