@@ -9,6 +9,7 @@ suppressPackageStartupMessages(library(sf))
 suppressPackageStartupMessages(library(maps))
 suppressPackageStartupMessages(library(viridis))
 ```
+
 ## Setting the Scene: Renewable Integration in the U.S. Over Time
 
 Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country's total generation capacity in any given year. It highlights: 
@@ -20,7 +21,7 @@ Understanding the trajectory of U.S. electricity generation over the past three 
 
 We focus this analysis on wind and solar electricity generation because they provide clean but intermittent energy (after all, we can't control when the wind is blowing and the sun is shining!). As the U.S. works to reduce carbon emissions and combat climate change, the grid will be more reliant on these intermittent energy sources, so understanding their impact on grid reliability is crucial. 
 
-```{r, fig.width = 10}
+```{r, fig.width = 11}
 us_gen_data <- read.csv("US_generation.csv")
 
 colnames(us_gen_data)[1] <- "Year"
@@ -57,7 +58,7 @@ The plot above may give the impression that wind and solar currently contribute 
 
 This "Wind & Solar as a Fraction of Total Electricity Generation" metric measures the share of electricity generation coming from intermittent sources, and is often referred to as a percentage value called "Renewable Penetration".
 
-```{r, fig.width = 10}
+```{r, fig.width = 11}
 
 # Add a new column to calculate the fraction of wind + solar generation
 data2 <- us_gen_data |>
@@ -117,7 +118,7 @@ Higher CAIDI and SAIDI values indicate a less reliable grid, where interruptions
 
 In the plot below, the comparison of reliability metrics on the left (including all major events) and the right (excluding major events) demonstrates a relationship between grid reliability and "major event days", described by the EIA as "any day that exceeds a daily SAIDI threshold". When all major events are included, the plot shows significant spikes in some years: 2017, 2020, and 2021. Conversely, when major events are excluded, the metrics remain relatively stable over time, suggesting that the underlying reliability of the grid is not significantly affected by increasing renewable energy penetration, and is rather driven by the occurrence of these "major events" that we investigate in section 3.5.
 
-```{r, fig.width = 10}
+```{r, fig.width = 11}
 
 t1_reliability <- read.csv("T1_Reliability.csv")
 
