@@ -4,10 +4,18 @@
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(scales))
 ```
 ## Setting the Scene: Renewable Integration in the U.S. Over Time:
 
-Blah blah blah, explain what goes into other renewables (mostly made up of hydro), but we'll be focusing on wind and solar because they are intermittent (can't control when the wind is blowing and the sun is shining)
+Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country's total generation capacity in any given year. It highlights: 
+
+- The decline of coal and petroleum-based generation
+- The rise of natural gas
+- The rapid growth of intermittent renewables (wind and solar), especially in the past decade
+- The consistency of other renewables, which include hydroelectric, geothermal, and biomass
+
+We focus this analysis on wind and solar electricity generation because they provide clean but intermittent energy (after all, we can't control when the wind is blowing and the sun is shining!). As the U.S. works to reduce carbon emissions and combat climate change, the grid will be more reliant on these intermittent energy sources, so understanding their impact on grid reliability is crucial. 
 
 ```{r, fig.width = 10}
 us_gen_data <- read.csv("US_generation.csv")
@@ -35,14 +43,15 @@ ggplot(data1_long, aes(x = Year, y = Generation, fill = Energy_Source)) +
                                "petroleum.and.other" = "gray30",
                                "wind" = "green4",
                                "solar" = "yellow")) +
-  labs(title = "US Electricity Generation (MW) by Source 1990-2023",
+  labs(title = "US Electricity Generation Capacity (MW) by Source 1990-2023",
        x = "Year",
-       y = "Electricity Generation (MW)",
+       y = "Electricity Generation Capacity (MW)",
        fill = "Energy Source") +
   theme_minimal()
 ```
 
-Plot above doesn't make it seem like renewables are a huge share, but they are growing at a rapid pace, especially wind and solar... blah blah , could combine line graph and area pchart above maybe? idk
+The plot above may make it seem like wind and solar are not responsible for a large portion of the energy generation in the U.S., but if we plot their share of the country's total generation mix from 1990 to 2023, we see the  
+Further, the EIA forecasts this share to keep growing at a very rapid pace through the mid-2030s, and reaching nearly half of the country's electricity generation by 2050.
 
 ```{r, fig.width = 10}
 
@@ -56,32 +65,51 @@ data2 <- us_gen_data |>
 # Find the last data point
 last_point <- data2 |> filter(Year == max(Year))
 
-# Line graph
+# Load and prepare the forecast data in R
+forecast <- read.csv("Renewable_Energy_Forecast.csv") |>
+  select(Year, Solar_Wind_Fraction) |>
+  rename(Solar_Wind_Fraction = Solar_Wind_Fraction)
+
+# Combine the historical and forecast data for plotting
+combined_data <- bind_rows(
+  data2 |> select(Year, Wind_Solar_Fraction) |> rename(Fraction = Wind_Solar_Fraction),
+  forecast |> rename(Fraction = Solar_Wind_Fraction)
+)
+
+# Find the last data point
+last_point2 <- forecast |> filter(Year == max(Year))
+
+# Plot with the forecast
 ggplot(data2, aes(x = Year, y = Wind_Solar_Fraction)) +
   geom_line(color = "darkolivegreen4", linewidth = 1.2) +
+  geom_line(data = forecast, aes(x = Year, y = Solar_Wind_Fraction),
+            color = "darkolivegreen4", linetype = "dashed", linewidth = 1.2) +
   geom_point(data = last_point, aes(x = Year, y = Wind_Solar_Fraction), 
              size = 2.5, color = "darkolivegreen4") +
   geom_text(data = last_point, aes(label = scales::percent(Wind_Solar_Fraction, accuracy = 0.1)),
-            vjust = -0.5, hjust = 1, color = "darkolivegreen4") +  # Add a label for the last data point
-  labs(title = "Wind + Solar as a Fraction of Total Electricity Generation (1990 - 2023)",
+            vjust = -0.5, hjust = 1, color = "darkolivegreen4") +
+  geom_text(data = forecast |> filter(Year == 2050),
+            aes(x = Year, y = Solar_Wind_Fraction,
+                label = scales::percent(Solar_Wind_Fraction, accuracy = 0.1)),
+            vjust = -0.5, hjust = -0.1, color = "darkolivegreen4") + 
+ geom_point(data = last_point2, aes(x = Year, y = Solar_Wind_Fraction), 
+             size = 2.5, color = "darkolivegreen4") +
+  labs(title = "Wind & Solar as a Fraction of Total Electricity Generation (Historical 1990 - 2023 and Forecast 2024-2050)",
        x = "Year",
-       y = "Fraction of Total Generation",) +
+       y = "Fraction of Total Generation") +
   theme_minimal() +
-  scale_y_continuous(labels = scales::percent_format())
-
+  scale_y_continuous(labels = scales::percent_format())+
+  scale_x_continuous(breaks = seq(1990, 2050, by = 5)) 
 ```
 
 ## Grid Reliability:
 
 Talk about why grid reliability is important, explain reliability metrics
 
-- CAIDI:(is actually just saidi * saifi) Customer Average Interruption Duration Index. It is average number of minutes it takes to restore non-momentary electric interruptions.
-- SAIDI:System Average Interruption Duration Index. It is the minutes of non-momentary electric interruptions, per year, the average customer experienced.
-- SAIFI:System Average Interruption Frequency Index. It is the number of non-momentary electric interruptions, per year, the average customer experienced.
+- CAIDI: Customer Average Interruption Duration Index. It is average number of minutes it takes to restore non-momentary electric interruptions.
+- SAIDI: System Average Interruption Duration Index. It is the minutes of non-momentary electric interruptions, per year, the average customer experienced.
 
 Conclusion from this is that reliability is probs much more related to lack of extreme weather events than renewable penetration... could be interesting to track down states with major weather events vs those without and see if there is correlation in what we're seeing here  (good conclusion for the entire project: extreme weather event contributes to lack of reliability much more than renewable integration, makes an even stronger case for the energy transition which can hopefully mitigate or slow down climate change that brings extreme weather) (Can look at winter storm Uri in texas Feb 2021?, California 2022 heatwaves?)
-
-Probably should get rid of saifi? or include as bar on secondary axis but we;ve been told no secondary axes
 
 ```{r, fig.width = 10}
 
@@ -94,12 +122,13 @@ t1_reliability$Year <- as.integer(t1_reliability$Year)
 
 # Reshape the data to a long format for plotting
 data3_long <- t1_reliability  |>
-  pivot_longer(cols = c(SAIDI, SAIFI, CAIDI), names_to = "Metric", values_to = "Value")
+  pivot_longer(cols = c(SAIDI, CAIDI), names_to = "Metric", values_to = "Value")
 
 # Plot the line graph faceted by Event Category
 ggplot(data3_long, aes(x = Year, y = Value, color = Metric)) +
   geom_line(linewidth = 1.2) +
   scale_x_continuous(breaks = seq(2013, 2023, 1)) +
+  scale_y_continuous(limits = c(0, NA), expand = c(0, 0)) + 
   labs(title = "Reliability Metrics (2013–2023)",
        x = "Year",
        y = "Value",
