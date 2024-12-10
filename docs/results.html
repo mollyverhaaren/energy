@@ -183,8 +183,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-the-scene-renewable-integration-in-the-u.s.-over-time" id="toc-setting-the-scene-renewable-integration-in-the-u.s.-over-time" class="nav-link active" data-scroll-target="#setting-the-scene-renewable-integration-in-the-u.s.-over-time"><span class="header-section-number">3.1</span> Setting the Scene: Renewable Integration in the U.S. Over Time:</a></li>
+  <li><a href="#setting-the-scene-renewable-integration-in-the-u.s.-over-time" id="toc-setting-the-scene-renewable-integration-in-the-u.s.-over-time" class="nav-link active" data-scroll-target="#setting-the-scene-renewable-integration-in-the-u.s.-over-time"><span class="header-section-number">3.1</span> Setting the Scene: Renewable Integration in the U.S. Over Time</a></li>
   <li><a href="#grid-reliability" id="toc-grid-reliability" class="nav-link" data-scroll-target="#grid-reliability"><span class="header-section-number">3.2</span> Grid Reliability:</a></li>
+  <li><a href="#is-there-any-correlation-between-renewable-penetration-and-grid-reliability" id="toc-is-there-any-correlation-between-renewable-penetration-and-grid-reliability" class="nav-link" data-scroll-target="#is-there-any-correlation-between-renewable-penetration-and-grid-reliability"><span class="header-section-number">3.3</span> Is there any correlation between renewable penetration and grid reliability?:</a></li>
+  <li><a href="#is-there-a-geographic-explanation" id="toc-is-there-a-geographic-explanation" class="nav-link" data-scroll-target="#is-there-a-geographic-explanation"><span class="header-section-number">3.4</span> Is there a geographic explanation?</a></li>
+  <li><a href="#confirming-that-these-standouts-are-caused-by-extreme-weather-events" id="toc-confirming-that-these-standouts-are-caused-by-extreme-weather-events" class="nav-link" data-scroll-target="#confirming-that-these-standouts-are-caused-by-extreme-weather-events"><span class="header-section-number">3.5</span> Confirming that these standouts are caused by extreme weather events:</a></li>
+  <li><a href="#the-economic-case-for-renewables" id="toc-the-economic-case-for-renewables" class="nav-link" data-scroll-target="#the-economic-case-for-renewables"><span class="header-section-number">3.6</span> The economic case for renewables:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/mollyverhaaren/energy.git/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mollyverhaaren/energy.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -215,12 +219,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(ggplot2))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyr))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyr))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(scales))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(sf))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(maps))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(viridis))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="setting-the-scene-renewable-integration-in-the-u.s.-over-time" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="setting-the-scene-renewable-integration-in-the-u.s.-over-time"><span class="header-section-number">3.1</span> Setting the Scene: Renewable Integration in the U.S. Over Time:</h2>
-<p>Blah blah blah, explain what goes into other renewables (mostly made up of hydro), but we’ll be focusing on wind and solar because they are intermittent (can’t control when the wind is blowing and the sun is shining)</p>
+<h2 data-number="3.1" class="anchored" data-anchor-id="setting-the-scene-renewable-integration-in-the-u.s.-over-time"><span class="header-section-number">3.1</span> Setting the Scene: Renewable Integration in the U.S. Over Time</h2>
+<p>Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country’s total generation capacity in any given year. It highlights:</p>
+<ul>
+<li>The decline of coal and petroleum-based generation</li>
+<li>The rise of natural gas</li>
+<li>The rapid growth of intermittent renewables (wind and solar), especially in the past decade</li>
+<li>The consistency of other renewables, which include hydroelectric, geothermal, and biomass</li>
+</ul>
+<p>We focus this analysis on wind and solar electricity generation because they provide clean but intermittent energy (after all, we can’t control when the wind is blowing and the sun is shining!). As the U.S. works to reduce carbon emissions and combat climate change, the grid will be more reliant on these intermittent energy sources, so understanding their impact on grid reliability is crucial.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -249,9 +264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"petroleum.and.other"</span> <span class="ot">=</span> <span class="st">"gray30"</span>,</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"wind"</span> <span class="ot">=</span> <span class="st">"green4"</span>,</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"solar"</span> <span class="ot">=</span> <span class="st">"yellow"</span>)) <span class="sc">+</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"US Electricity Generation (MW) by Source 1990-2023"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"US Electricity Generation Capacity (MW) by Source 1990-2023"</span>,</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Electricity Generation (MW)"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Electricity Generation Capacity (MW)"</span>,</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Energy Source"</span>) <span class="sc">+</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -263,7 +278,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Plot above doesn’t make it seem like renewables are a huge share, but they are growing at a rapid pace, especially wind and solar… blah blah , could combine line graph and area pchart above maybe? idk</p>
+<p>The plot above may give the impression that wind and solar currently contribute only a modest portion to the U.S. energy mix. However, when we plot their share of the country’s total electricity generation from 1990 to 2023, we see a significant growth trajectory. Starting from near zero contribution in the 1990s, wind and solar now account for 14.1% of total generation as of 2023. This trend is expected to accelerate significantly in the coming decades. According to EIA forecasts, wind and solar are projected to reach nearly 50% of total electricity generation by 2050.</p>
+<p>This “Wind &amp; Solar as a Fraction of Total Electricity Generation” metric measures the share of electricity generation coming from intermittent sources, and is often referred to as a percentage value called “Renewable Penetration”.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -277,18 +293,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the last data point</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>last_point <span class="ot">&lt;-</span> data2 <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="fu">max</span>(Year))</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Line graph</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Wind_Solar_Fraction)) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"darkolivegreen4"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> last_point, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Wind_Solar_Fraction), </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>) <span class="sc">+</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> last_point, <span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(Wind_Solar_Fraction, <span class="at">accuracy =</span> <span class="fl">0.1</span>)),</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>) <span class="sc">+</span>  <span class="co"># Add a label for the last data point</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wind + Solar as a Fraction of Total Electricity Generation (1990 - 2023)"</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Fraction of Total Generation"</span>,) <span class="sc">+</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Load and prepare the forecast data in R</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>forecast <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Renewable_Energy_Forecast.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Year, Solar_Wind_Fraction) <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Solar_Wind_Fraction =</span> Solar_Wind_Fraction)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the historical and forecast data for plotting</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  data2 <span class="sc">|&gt;</span> <span class="fu">select</span>(Year, Wind_Solar_Fraction) <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">Fraction =</span> Wind_Solar_Fraction),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  forecast <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">Fraction =</span> Solar_Wind_Fraction)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the last data point</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>last_point2 <span class="ot">&lt;-</span> forecast <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="fu">max</span>(Year))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot with the forecast</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Wind_Solar_Fraction)) <span class="sc">+</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"darkolivegreen4"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> forecast, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Solar_Wind_Fraction),</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> last_point, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Wind_Solar_Fraction), </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>) <span class="sc">+</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> last_point, <span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(Wind_Solar_Fraction, <span class="at">accuracy =</span> <span class="fl">0.1</span>)),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>) <span class="sc">+</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> forecast <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2050</span>),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Solar_Wind_Fraction,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(Solar_Wind_Fraction, <span class="at">accuracy =</span> <span class="fl">0.1</span>)),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>) <span class="sc">+</span> </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>(<span class="at">data =</span> last_point2, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Solar_Wind_Fraction), </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">color =</span> <span class="st">"darkolivegreen4"</span>) <span class="sc">+</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wind &amp; Solar as a Fraction of Total Electricity Generation (Historical 1990 - 2023 and Forecast 2024-2050)"</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Fraction of Total Generation"</span>) <span class="sc">+</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>())<span class="sc">+</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1990</span>, <span class="dv">2050</span>, <span class="at">by =</span> <span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -301,14 +340,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="grid-reliability" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="grid-reliability"><span class="header-section-number">3.2</span> Grid Reliability:</h2>
-<p>Talk about why grid reliability is important, explain reliability metrics</p>
+<p>Grid reliability ensures that electricity is consistently available to meet the needs of homes, businesses, and critical services. As the U.S. transitions to a cleaner energy grid, understanding renewable energy’s impact on reliability is very important. The two key metrics the EIA uses to measure grid reliability are CAIDI and SAIDI, which help quantify the frequency and duration of power outages experienced by consumers:</p>
 <ul>
-<li>CAIDI:(is actually just saidi * saifi) Customer Average Interruption Duration Index. It is average number of minutes it takes to restore non-momentary electric interruptions.</li>
-<li>SAIDI:System Average Interruption Duration Index. It is the minutes of non-momentary electric interruptions, per year, the average customer experienced.</li>
-<li>SAIFI:System Average Interruption Frequency Index. It is the number of non-momentary electric interruptions, per year, the average customer experienced.</li>
+<li>CAIDI: Customer Average Interruption Duration Index. It is average number of minutes it takes to restore non-momentary electric interruptions.</li>
+<li>SAIDI: System Average Interruption Duration Index. It is the minutes of non-momentary electric interruptions, per year, the average customer experienced.</li>
 </ul>
-<p>Conclusion from this is that reliability is probs much more related to lack of extreme weather events than renewable penetration… could be interesting to track down states with major weather events vs those without and see if there is correlation in what we’re seeing here (good conclusion for the entire project: extreme weather event contributes to lack of reliability much more than renewable integration, makes an even stronger case for the energy transition which can hopefully mitigate or slow down climate change that brings extreme weather) (Can look at winter storm Uri in texas Feb 2021?, California 2022 heatwaves?)</p>
-<p>Probably should get rid of saifi? or include as bar on secondary axis but we;ve been told no secondary axes</p>
+<p>Higher CAIDI and SAIDI values indicate a less reliable grid, where interruptions/outages are either more frequent, take longer to restore, or both.</p>
+<p>In the plot below, the comparison of reliability metrics on the left (including all major events) and the right (excluding major events) demonstrates a relationship between grid reliability and “major event days”, described by the EIA as “any day that exceeds a daily SAIDI threshold”. When all major events are included, the plot shows significant spikes in some years: 2017, 2020, and 2021. Conversely, when major events are excluded, the metrics remain relatively stable over time, suggesting that the underlying reliability of the grid is not significantly affected by increasing renewable energy penetration, and is rather driven by the occurrence of these “major events” that we investigate in section 3.5.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -321,18 +359,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to a long format for plotting</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>data3_long <span class="ot">&lt;-</span> t1_reliability  <span class="sc">|&gt;</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(SAIDI, SAIFI, CAIDI), <span class="at">names_to =</span> <span class="st">"Metric"</span>, <span class="at">values_to =</span> <span class="st">"Value"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(SAIDI, CAIDI), <span class="at">names_to =</span> <span class="st">"Metric"</span>, <span class="at">values_to =</span> <span class="st">"Value"</span>)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the line graph faceted by Event Category</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data3_long, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Value, <span class="at">color =</span> Metric)) <span class="sc">+</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2013</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Reliability Metrics (2013–2023)"</span>,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Value"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Metric"</span>) <span class="sc">+</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Event_Category</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">550</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Reliability Metrics (2013–2023)"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Value"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Metric"</span>) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Event_Category</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -342,6 +381,148 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="is-there-any-correlation-between-renewable-penetration-and-grid-reliability" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="is-there-any-correlation-between-renewable-penetration-and-grid-reliability"><span class="header-section-number">3.3</span> Is there any correlation between renewable penetration and grid reliability?:</h2>
+<p>INSERT MOLLY’S CORRELATION PLOTS</p>
+</section>
+<section id="is-there-a-geographic-explanation" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="is-there-a-geographic-explanation"><span class="header-section-number">3.4</span> Is there a geographic explanation?</h2>
+<p>We want to investigate if any states stand out when we focusing on high SAIDI years, when including all events. In other words, what states are responsible for “Major Events” in high-disruption years.</p>
+<p>By mapping total outage hours across high-disruption years (2017, 2020, 2021), this plot highlights states disproportionately affected by outages. We suspect this is due to extreme weather events such as winter storms and hurricanes, underscoring the intersection of climate resilience and energy grid reliability.</p>
+<ul>
+<li>In 2017: Maine, Vermont, and Florida stand out</li>
+<li>In 2020: Maine, Connecticut, Mississippi, Alabama, and Louisiana stand out</li>
+<li>In 2021: Texas, Oregon, and Louisiana stand out</li>
+</ul>
+<p>To provide a clearer perspective, the outage values are capped at 24 hours, representing a cumulative full day of outages over the course of a year. This approach highlights states with particularly disruptive events while maintaining focus on severe reliability issues. Without capping, we risk losing important granularity, as excessively high values from outlier events could overshadow state-by-state comparisons and trends.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data5 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"T4_ReliabilityByState.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># State abbreviations and full names</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>state_abbrev <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_full =</span> <span class="fu">tolower</span>(state.name),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_abbrev =</span> state.abb</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>filtered_data5 <span class="ot">&lt;-</span> data5 <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Method <span class="sc">==</span> <span class="st">"IEEE"</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         Event_Grouping <span class="sc">==</span> <span class="st">"All Events (With Major Event Days)"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>         Census_Division <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2020</span>, <span class="dv">2021</span>),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(Census_Division)) <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Method, <span class="sc">-</span>Event_Grouping, <span class="sc">-</span>HI, <span class="sc">-</span>AK)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data into a long format</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>long_data5 <span class="ot">&lt;-</span> filtered_data5 <span class="sc">|&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Census_Division, <span class="at">names_to =</span> <span class="st">"state_abbrev"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert values from minutes to hours and cap at 24 hours</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>long_data5 <span class="ot">&lt;-</span> long_data5 <span class="sc">|&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">pmin</span>(value <span class="sc">/</span> <span class="dv">60</span>, <span class="dv">24</span>)) </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Load state geometries</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"state"</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> us_states <span class="sc">|&gt;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state_full =</span> ID) <span class="sc">|&gt;</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(state_abbrev, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"state_full"</span> <span class="ot">=</span> <span class="st">"state_full"</span>)) </span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge data with geometries</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>mapped_data <span class="ot">&lt;-</span> us_states <span class="sc">|&gt;</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(long_data5, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"state_abbrev"</span> <span class="ot">=</span> <span class="st">"state_abbrev"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev <span class="sc">!=</span> <span class="st">"DC"</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the map with facets for Census Division</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mapped_data) <span class="sc">+</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"viridis"</span>, <span class="at">na.value =</span> <span class="st">"gray80"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">24</span>)) <span class="sc">+</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"U.S. Outage Hours by State in High-Disruption Years"</span>,</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">" Total Outage Hours</span><span class="sc">\n</span><span class="st"> (Capped at 24H)"</span>) <span class="sc">+</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Census_Division, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># Facet by Census Division</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>) </span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="confirming-that-these-standouts-are-caused-by-extreme-weather-events" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="confirming-that-these-standouts-are-caused-by-extreme-weather-events"><span class="header-section-number">3.5</span> Confirming that these standouts are caused by extreme weather events:</h2>
+<p>Each high-disruption states and year can be linked to an of extreme weather event, such as a winter storm, a hurricane or a tornado. By year, the events are as follows:</p>
+<ul>
+<li><strong>2017</strong>:
+<ul>
+<li>Maine: <a href="https://en.wikipedia.org/wiki/October_2017_nor%27easter">October Nor’easter Storm</a></li>
+<li>Vermont: <a href="https://en.wikipedia.org/wiki/October_2017_nor%27easter">October Nor’easter Storm</a></li>
+<li>Florida: <a href="https://www.eia.gov/todayinenergy/detail.php?id=32992#:~:text=Hurricane%20Irma%20struck%20Florida%20on,Florida%20Division%20of%20Emergency%20Management.">September Hurricane Irma</a></li>
+</ul></li>
+<li><strong>2020</strong>
+<ul>
+<li>Maine: <a href="https://weather.com/news/news/2020-04-12-maine-power-outages-wind-snowstorm-outages">April 12th Snowstorm</a></li>
+<li>Connecticut: <a href="https://www.theverge.com/21361751/tropical-storm-isaias-power-outages-tristate-utilities-energy-grid">August Tropical Storm Isaias</a></li>
+<li>Mississippi: <a href="https://en.wikipedia.org/wiki/2020_Easter_tornado_outbreak">Easter Tornado Outbreak</a></li>
+<li>Alabama: <a href="https://en.wikipedia.org/wiki/2020_Easter_tornado_outbreak">Easter Tornado Outbreak</a></li>
+<li>Louisiana: <a href="https://en.wikipedia.org/wiki/2020_Easter_tornado_outbreak">Easter Tornado Outbreak</a></li>
+</ul></li>
+<li><strong>2020</strong>
+<ul>
+<li>Texas: <a href="https://en.wikipedia.org/wiki/February_13%E2%80%9317,_2021_North_American_winter_storm">February Winter Storm Uri</a></li>
+<li>Oregon: <a href="https://oregonbusiness.com/more-than-100000-oregon-homes-without-power-some-for-days-after-winter-storms/#:~:text=A%20series%20of%20ice%20storms,snow%20across%20the%20United%20States">February Ice Storms</a></li>
+<li>Louisiana: <a href="https://en.wikipedia.org/wiki/Hurricane_Ida">September Hurricane Ida</a></li>
+</ul></li>
+</ul>
+<p>The news articles and websites linked above tie these weather events to power outages, and the plot below confirms that this daily outage minutes spike in times of extreme weather. The plot shows daily outage metrics in Texas over the course of 2021, with the dates of Winter Storm Uri (February 10-25) highlighted in blue. As we expected, the highest number of outage minutes, by a large measure, lands within these storm days.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>saidi_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Texas_Daily_SAIDI.csv"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Date column to Date type</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>saidi_data<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(saidi_data<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%m/%d/%y"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>highlight_period <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2021-02-10"</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2021-02-25"</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"Winter Storm Uri"</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(saidi_data, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Daily.SAIDI)) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">data =</span> highlight_period, </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax, <span class="at">fill =</span> label),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Winter Storm Uri"</span> <span class="ot">=</span> <span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> .<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Daily SAIDI (Outage Minutes) in Texas in 2021"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"SAIDI (Outage Minutes)"</span>) <span class="sc">+</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-economic-case-for-renewables" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="the-economic-case-for-renewables"><span class="header-section-number">3.6</span> The economic case for renewables:</h2>
 
 
 </section>
