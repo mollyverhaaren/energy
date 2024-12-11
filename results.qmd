@@ -8,6 +8,10 @@ suppressPackageStartupMessages(library(scales))
 suppressPackageStartupMessages(library(sf))
 suppressPackageStartupMessages(library(maps))
 suppressPackageStartupMessages(library(viridis))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(vcd))
+suppressPackageStartupMessages(library(patchwork))
+suppressPackageStartupMessages(library(gridExtra))
 ```
 
 ## Setting the Scene: Renewable Integration in the U.S. Over Time
@@ -136,19 +140,195 @@ ggplot(data3_long, aes(x = Year, y = Value, color = Metric)) +
   geom_line(linewidth = 1.2) +
   scale_x_continuous(breaks = seq(2013, 2023, 1)) +
   scale_y_continuous(limits = c(0, 550), expand = c(0, 0)) + 
+  scale_color_manual(values = c("SAIDI" = 'black',"CAIDI" = 'snow4'),
+                     breaks = c("SAIDI","CAIDI")) +
   labs(title = "Reliability Metrics (2013–2023)",
        x = "Year",
        y = "Value",
        color = "Metric") +
-  facet_wrap(~ `Event_Category`) +
-  theme_minimal()
+  facet_wrap(~ `Event_Category`,
+             labeller = labeller(`Event_Category` = c("IEEE_All_Events" = "All Events (With Major Event Days)",
+                                                      "IEEE_No_Major_Events" = "Without Major Event Days"))) +
+  theme_minimal() +
+  theme(legend.position = 'bottom')
 ```
 
 ## Is there any correlation between renewable penetration and grid reliability?:
 
-INSERT MOLLY'S CORRELATION PLOTS
+```{r, fig.width = 12}
+# Load reliability metrics (SAIDI) from 2013-2023 by state
+t4_rbs <- read_csv("T4_ReliabilityByState.csv")
+
+# Pivot longer by state and filter to IEEE All Events
+data_rbs <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
+  filter(Method == 'IEEE',
+         Event_Grouping == 'All Events (With Major Event Days)')
+
+# Create 2023-only version with major event days
+rbs_2023 <- data_rbs |>
+  filter(Census_Division == '2023') |>
+  select(state, SAIDI)
+
+# Create 2023-only version without major event days
+rbs_2023_no_major <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
+  filter(Method == 'IEEE',
+         Event_Grouping == 'Without Major Event Days',
+         Census_Division == '2023') |>
+  select(state, SAIDI)
+
+# Load renewable penetration from 2023 by state
+state_generation_2023 <- read_csv('state_generation_2023.csv')
+
+# Calculate generation by energy type by state
+state_generation_2023 <- state_generation_2023 |>
+  group_by(state, source) |>
+  summarise(generation = sum(generation))
+
+# Derive renewable penetration from generation
+state_pen_2023 <- state_generation_2023 |>
+  pivot_wider(names_from = source, values_from = generation, values_fill = 0) |>
+  mutate(total_gen = coal + natural.gas + other.renewables + petroleum.and.other + solar + wind + nuclear,
+         wind_solar = wind + solar,
+         w_s_pen = wind_solar/total_gen)
+
+# Create combo dataset that disregards event grouping type
+rbs_2023_combo <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
+  filter(Method == 'IEEE',
+         Event_Grouping %in% c('Without Major Event Days','All Events (With Major Event Days)'),
+         Census_Division == '2023') |>
+  select(state, SAIDI, Event_Grouping)
+
+# Join reliability (SAIDI) with renewable penetration by state with major event days
+scatter_state_2023 <- state_pen_2023 |>
+  left_join(rbs_2023, by = 'state') |>
+  select(state, w_s_pen, SAIDI)
+
+# Join reliability (SAIDI) with renewable penetration by state without major event days
+scatter_state_2023_no_major <- state_pen_2023 |>
+  left_join(rbs_2023_no_major, by = 'state') |>
+  select(state, w_s_pen, SAIDI)
+
+# Join reliability (SAIDI) with renewable penetration by state for combo version 
+scatter_state_2023_combo <- state_pen_2023 |>
+  left_join(rbs_2023_combo, by = 'state') |>
+  select(state, w_s_pen, SAIDI, Event_Grouping)
+
+# Store scatter plot colored by event grouping type
+plot2 <- ggplot(data = scatter_state_2023_combo, mapping = aes(x = w_s_pen, y = SAIDI, color = Event_Grouping)) +
+  geom_point(alpha = .7, size = 3) +
+  # coord_cartesian(ylim = c(0,1850)) + 
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(x = "Renewable Penetration",
+       y = "Average Outage Duration (SAIDI)",
+       color = "Outage Event Grouping") +
+  theme_minimal() +
+  theme(legend.position = 'bottom')
+
+# Get rid of Hawaii (NA) to calculate correlation coefficient
+no_hawaii <-scatter_state_2023_no_major |>
+  filter(state != 'HI')
+
+# Calc corr coeff
+cc <- cor(no_hawaii$w_s_pen, no_hawaii$SAIDI)
+
+# Store second scatter plot, a version zoomed in on without major event days that includes a regression
+plot3 <- ggplot(data = filter(scatter_state_2023_combo, Event_Grouping == 'Without Major Event Days'), mapping = aes(x = w_s_pen, y = SAIDI)) +
+  geom_point(alpha = .7, size = 3, color = '#31bdc3') +
+  geom_smooth(data = filter(scatter_state_2023_combo, Event_Grouping == 'Without Major Event Days'),
+              method = 'lm',
+              color = '#1d7276') +
+  annotate("text", x = .35, y = 125, label = paste("Correlation:", round(cc, 3))) +
+  coord_cartesian(ylim = c(0, 450)) +
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(x = "Renewable Penetration",
+       y = "Average Outage Duration (SAIDI)") +
+  theme_minimal()
+
+# Patch plots together
+plot2 + plot3 +
+  plot_layout(widths = c(2, 2.3)) +
+  plot_annotation(title = 'Average Outage Duration (SAIDI) by Renewable Penetration With and Without Major Events in 2023',
+                  theme = theme(plot.title = element_text(size = 15)))
+```
+
+
+```{r, fig.height = 5, fig.width = 5}
+# Store median of renewable penetration and of SAIDI with major events
+all_events_pen_med <- median(scatter_state_2023$w_s_pen)
+all_events_SAIDI_med <- median(scatter_state_2023$SAIDI)
+
+# Prep data with major events for mosaic plot
+all_events_mos <- scatter_state_2023 |>
+  mutate(Penetration = factor(if_else(w_s_pen >= all_events_pen_med, 'Above', 'States below median'),
+                              levels = c('States below median','Above')),
+         SAIDI = factor(if_else(SAIDI >= all_events_SAIDI_med, 'Above', 'States below median'),
+                        levels = c('States below median','Above'))) |>
+  select(-w_s_pen)
+
+# Store median of renewable penetration and of SAIDI without major events
+no_major_pen_med <- median(no_hawaii$w_s_pen)
+no_major_SAIDI_med <- median(no_hawaii$SAIDI)
+
+# Prep data without major events for mosaic plot
+no_major_mos <- no_hawaii |>
+  mutate(Penetration = factor(if_else(w_s_pen >= no_major_pen_med, 'Above', 'States below median'),
+                              levels = c('States below median','Above')),
+         SAIDI = factor(if_else(SAIDI >= no_major_SAIDI_med, 'Above', 'States below median'),
+                        levels = c('States below median','Above'))) |>
+  select(-w_s_pen)
+
+# Create mosaic plots for both event grouping types
+mosaic(SAIDI ~ Penetration, all_events_mos, direction = c("v", "h"),
+       main = "All Events (With Major Event Days)",
+       highlighting_fill = c('#f37a717F','#f37a71'))
+mosaic(SAIDI ~ Penetration, no_major_mos, direction = c("v", "h"),
+       main = 'No Major Event Days',
+       highlighting_fill = c('#31bdc37F','#31bdc3'))
+```
+
 
 ## Is there a geographic explanation?
+
+
+```{r, fig.height = 7}
+# Sum SAIDI across the decade of data with all major events
+decade_SAIDI_all <- data_rbs |>
+  filter(state != 'HI') |>
+  group_by(state) |>
+  summarise(SAIDI_all = sum(SAIDI))
+
+# Sum SAIDI across the decade of data without major events
+decade_SAIDI_nm <- t4_rbs |>
+  pivot_longer(cols = c('CT':'HI'),names_to = 'state', values_to = 'SAIDI') |>
+  filter(Method == 'IEEE',
+         Event_Grouping == 'Without Major Event Days',
+         state != 'HI') |>
+  group_by(state) |>
+  summarise(SAIDI_nm = sum(SAIDI))
+
+# Join datasets
+bar <- decade_SAIDI_all |>
+  left_join(decade_SAIDI_nm, by = 'state')
+
+# Order states by SAIDI with all major events
+bar$state <- reorder(bar$state, bar$SAIDI_all)
+
+# Create Cleveland dotplot colored by event grouping type
+ggplot(bar, mapping = aes(y = state, x = SAIDI_all, color = 'All Events (With Major Event Days)')) +
+  geom_point(size = 3) +
+  geom_point(size = 3, mapping = aes(x = SAIDI_nm, color = 'Without Major Event Days')) +
+  scale_x_continuous(limits = c(0, 15000)) +
+  labs(x = 'Total Average Outage Duration (SAIDI)',
+       y = 'State',
+       title = 'Total Average Outage Duration (SAIDI) by State from 2013-2023',
+       color = 'Outage Event Grouping') +
+  theme_minimal() +
+  theme(legend.position = 'bottom')
+```
+
 
 We want to investigate if any states stand out when we focusing on high SAIDI years, when including all events. In other words, what states are responsible for "Major Events" in high-disruption years. 
 
@@ -255,13 +435,13 @@ ggplot(saidi_data, aes(x = Date, y = Daily.SAIDI)) +
   geom_rect(data = highlight_period, 
             aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = label),
             alpha = 0.8, inherit.aes = FALSE) +
-  scale_fill_manual(name = "", values = c("Winter Storm Uri" = "lightblue")) +
+  scale_fill_manual(name = "", values = c("Winter Storm Uri" = "#f3ff52")) +
   geom_line(color = "black", linewidth = .75) +
-  labs(title = "Daily SAIDI (Outage Minutes) in Texas in 2021",
+  labs(title = "Daily Outage Duration (SAIDI) in Texas in 2021",
        x = NULL,
-       y = "SAIDI (Outage Minutes)") +
+       y = "Daily Outage Duration (SAIDI)") +
   theme_minimal() +
-  theme(legend.position = "top")
+  theme(legend.position = "bottom")
 
 ```
 
