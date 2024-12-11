@@ -4,10 +4,31 @@
   * {
     font-family: sans-serif;
   }
+  .checkbox-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chart {
+    margin-top: 20px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+  }
 </style> 
 
-<div id="plot">
-</div>
+<h1>Billion-Dollar Weather and Climate Disasters</h1>
+
+<div class="checkbox-container" id="checkboxContainer"></div>
+<div id="chart"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="scripts/myscript.js"></script>
