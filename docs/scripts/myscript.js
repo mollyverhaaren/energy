@@ -2,7 +2,8 @@ const margin = { top: 20, right: 30, bottom: 70, left: 80 };
 const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
-const svg = d3.select("#chart").append("svg")
+const svg = d3.select("#chart")
+    .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -25,6 +26,7 @@ d3.csv(dataUrl).then(rawData => {
         return { year, ...events };
     });
 
+    // Create checkboxes with legend
     const checkboxContainer = d3.select("#checkboxContainer");
     eventTypes.forEach(type => {
         const legendItem = checkboxContainer.append("div").attr("class", "legend-item");

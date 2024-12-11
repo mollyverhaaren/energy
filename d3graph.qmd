@@ -1,5 +1,11 @@
 # Interactive graph
 
+EXPLAIN - one of the biggest dangers to the grid is extreme weather events, need to build the future of the energy system to be resilient to climate!
+
+The National Centers For Environmental Information and [NOAA](https://www.ncei.noaa.gov/access/billions/events/US/1990-2024?disasters[]=all-disasters) have a database of weather and climate disasters, and they keep track of the ones that caused damages over $1 billion.
+
+To explore this data and to discover the trend in the frequency of these events, click through the checkboxes below to unveil the number of each of these climate disasters where overall damages/costs reached or exceeded $1 billion.
+
 <style>
   * {
     font-family: sans-serif;
@@ -32,3 +38,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="scripts/myscript.js"></script>
+
+
+Explain some more of what we observe with this data (severe storm has the highest upward trend), cumulative effect of these disasters is most interesting 
