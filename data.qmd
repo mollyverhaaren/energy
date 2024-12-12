@@ -101,7 +101,7 @@ data4_plot <- data4 |>
 
 ### Table 11.1
 
-```{r, fig.width = 10, fig.height = 5}
+```{r, fig.width = 10, fig.height = 5, fig.align = 'center'}
 ggplot(data1_plot, aes(x = name, y = fct_rev(Year), fill = Missing)) +
   geom_tile(color = 'white') +
   scale_fill_viridis_d() +
@@ -115,7 +115,7 @@ Table 11.1 contains "Reliability Metrics of U.S. Distribution System" by year fr
 
 ### Table 11.2
 
-```{r, fig.width = 10, fig.height = 12}
+```{r, fig.width = 10, fig.height = 12, fig.align = 'center'}
 ggplot(data2_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
   geom_tile(color = 'white') +
   scale_fill_viridis_d() +
@@ -129,7 +129,7 @@ Table 11.2 contains "Reliability Metrics Using IEEE of U.S. Distribution System 
 
 ### Table 11.4
 
-```{r, fig.width = 24, fig.height = 12}
+```{r, fig.width = 24, fig.height = 12, fig.aligh = 'center'}
 ggplot(data4_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
   geom_tile(color = 'white') +
   scale_fill_viridis_d() +
