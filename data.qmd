@@ -47,18 +47,27 @@ We will also be using an Excel spreadsheet (.xlsx) containing the EIA-860 Annual
 ### Data sources:
 
 
-Reliability Metrics of U.S. Distribution System (EIA-861): 
+**Reliability Metrics of U.S. Distribution System (EIA-861): **
 
 
 - [Reliability Metrics of US Distribution System](https://www.eia.gov/electricity/annual/html/epa_11_01.html) 
 - [Table 11.4. SAIDI values of U.S. distribution system by state](https://www.eia.gov/electricity/annual/html/epa_11_04.html) 
 - [Table 11.2. Reliability metrics using IEEE of U.S. distribution system by state](https://www.eia.gov/electricity/annual/html/epa_11_02.html) 
+- [The Environment for Analysis of Geo-Located Energy Information’s Recorded Electricity Outages 2014-2023](https://figshare.com/articles/dataset/The_Environment_for_Analysis_of_Geo-Located_Energy_Information_s_Recorded_Electricity_Outages_2014-2022/24237376?file=42547891)
 
 
-EIA-860 Annual Electric Generator Report:
+**EIA-860 Annual Electric Generator Report:**
 
 
 - [Historical State Data - U.S. Energy Information Administration (EIA)](https://www.eia.gov/electricity/data/state/) 
+- [2023 Renewable Energy Outlook](https://www.eia.gov/outlooks/aeo/data/browser/#/?id=16-AEO2023&region=0-0&cases=ref2023&start=2021&end=2050&f=A&linechart=~~ref2023-d020623a.9-16-AEO2023~ref2023-d020623a.10-16-AEO2023~ref2023-d020623a.8-16-AEO2023&ctype=linechart&sourcekey=0)
+
+
+**NOAA Extreme Weather Report:**
+
+
+- [Billion-Dollar Weather and Climate Disasters](https://www.ncei.noaa.gov/access/billions/events/US/1990-2024?disasters[]=all-disasters)
+
 
 
 ## Missing value analysis
