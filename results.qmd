@@ -302,7 +302,9 @@ The information provided by both plot types not only contradicts worry that rene
 
 ## Are there geographic trends?
 
-To begin exploring a second factor, it helps us to know which states had the highest amounts of interruptions across the last decade, no matter the reason. The Cleveland dot plot below shows the sum of SAIDI by state from 2013 to 2023, which reveals the states with the least reliable energy generation at the top. (Hawaii is excluded for missing data.) Louisiana, Maine, and West Virginia float to the top when all events are considered but with a key distinction. West Virginia's two sums are significantly closer than those of Louisiana and Maine, suggesting different reasons behind their outages. We imagine that West Virginia may simply have a problematic grid, whereas Louisiana and Maine may experience volatile, external impacts. The next step is to search for that volatility.
+To begin exploring a second factor, it helps us to know which states had the highest amounts of interruptions across the last decade, no matter the reason. The Cleveland dot plot below shows the sum of SAIDI by state from 2013 to 2023, which reveals the states with the least reliable energy generation at the top. (Hawaii is excluded for missing data.)
+
+Louisiana, Maine, and West Virginia float to the top when all events are considered but with a key distinction. West Virginia's two sums are significantly closer than those of Louisiana and Maine, suggesting different reasons behind their outages. We imagine that West Virginia may simply have a problematic grid, whereas Louisiana and Maine may experience volatile, external impacts. The next step is to search for that volatility.
 
 ```{r, fig.height = 7, fig.align = 'center'}
 # Sum SAIDI across the decade of data with all major events
