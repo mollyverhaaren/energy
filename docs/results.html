@@ -185,10 +185,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#setting-the-scene-renewable-integration-in-the-u.s.-over-time" id="toc-setting-the-scene-renewable-integration-in-the-u.s.-over-time" class="nav-link active" data-scroll-target="#setting-the-scene-renewable-integration-in-the-u.s.-over-time"><span class="header-section-number">3.1</span> Setting the Scene: Renewable Integration in the U.S. Over Time</a></li>
   <li><a href="#grid-reliability" id="toc-grid-reliability" class="nav-link" data-scroll-target="#grid-reliability"><span class="header-section-number">3.2</span> Grid Reliability</a></li>
-  <li><a href="#is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability" id="toc-is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability" class="nav-link" data-scroll-target="#is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability"><span class="header-section-number">3.3</span> Is there any correlation/association between renewable penetration and grid reliability?:</a></li>
+  <li><a href="#is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability" id="toc-is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability" class="nav-link" data-scroll-target="#is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability"><span class="header-section-number">3.3</span> Is there any correlation/association between renewable penetration and grid reliability?</a></li>
   <li><a href="#are-there-geographic-trends" id="toc-are-there-geographic-trends" class="nav-link" data-scroll-target="#are-there-geographic-trends"><span class="header-section-number">3.4</span> Are there geographic trends?</a></li>
-  <li><a href="#confirming-that-these-standouts-are-caused-by-extreme-weather-events" id="toc-confirming-that-these-standouts-are-caused-by-extreme-weather-events" class="nav-link" data-scroll-target="#confirming-that-these-standouts-are-caused-by-extreme-weather-events"><span class="header-section-number">3.5</span> Confirming that these standouts are caused by extreme weather events:</a></li>
-  <li><a href="#the-economic-case-for-renewables" id="toc-the-economic-case-for-renewables" class="nav-link" data-scroll-target="#the-economic-case-for-renewables"><span class="header-section-number">3.6</span> The economic case for renewables:</a></li>
+  <li><a href="#confirming-that-these-standouts-are-caused-by-extreme-weather-events" id="toc-confirming-that-these-standouts-are-caused-by-extreme-weather-events" class="nav-link" data-scroll-target="#confirming-that-these-standouts-are-caused-by-extreme-weather-events"><span class="header-section-number">3.5</span> Confirming that these standouts are caused by extreme weather events</a></li>
+  <li><a href="#insert-last-topic" id="toc-insert-last-topic" class="nav-link" data-scroll-target="#insert-last-topic"><span class="header-section-number">3.6</span> [INSERT LAST TOPIC]</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/mollyverhaaren/energy.git/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mollyverhaaren/energy.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -221,8 +221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyr))</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(scales))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(sf))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(maps))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(sf)))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(maps)))</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(viridis))</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(readr))</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(vcd))</span>
@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="setting-the-scene-renewable-integration-in-the-u.s.-over-time" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="setting-the-scene-renewable-integration-in-the-u.s.-over-time"><span class="header-section-number">3.1</span> Setting the Scene: Renewable Integration in the U.S. Over Time</h2>
-<p>Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country’s total generation capacity in any given year. It highlights:</p>
+<p>Understanding the trajectory of U.S. electricity generation over the past three decades provides context for the challenges and opportunities presented by renewable energy integration. The plot below serves as the foundation of our analysis, showing the shift in energy sources from 1990 to 2023. The total area adds up to the country’s total generation capacity in any given year. It highlights the following:</p>
 <ul>
 <li>The decline of coal and petroleum-based generation.</li>
 <li>The rise of natural gas.</li>
@@ -240,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The consistency of other renewables, which include hydroelectric, geothermal, and biomass.</li>
 </ul>
 <p>We focus this analysis on wind and solar electricity generation because they provide clean but intermittent energy (after all, we can’t control when the wind is blowing and the sun is shining!). As the U.S. works to reduce carbon emissions and combat climate change, the grid will be more reliant on these intermittent energy sources, so understanding their impact on grid reliability is crucial.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>us_gen_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"US_generation.csv"</span>)</span>
@@ -275,16 +275,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1056"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1056"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The plot above may give the impression that wind and solar currently contribute only a modest portion to the U.S. energy mix. However, when we plot their share of the country’s total electricity generation from 1990 to 2023, we see a significant growth trajectory. Starting from near zero contribution in the 1990s, wind and solar now account for 14.1% of total generation as of 2023. This trend is expected to accelerate significantly in the coming decades. According to EIA forecasts, wind and solar are projected to reach nearly 50% of total electricity generation by 2050.</p>
 <p>This “Wind &amp; Solar as a Fraction of Total Electricity Generation” metric measures the share of electricity generation coming from intermittent sources, and is often referred to as a percentage value called “Renewable Penetration”.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a new column to calculate the fraction of wind + solar generation</span></span>
@@ -334,9 +334,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1990</span>, <span class="dv">2050</span>, <span class="at">by =</span> <span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1056"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1056"></p>
 </figure>
 </div>
 </div>
@@ -349,9 +349,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>CAIDI: Customer Average Interruption Duration Index. It is average number of minutes it takes to restore non-momentary electric interruptions.</li>
 <li>SAIDI: System Average Interruption Duration Index. It is the minutes of non-momentary electric interruptions, per year, the average customer experienced.</li>
 </ul>
-<p>Higher CAIDI and SAIDI values indicate a less reliable grid, where interruptions/outages are either more frequent, take longer to restore, or both.</p>
-<p>In the plot below, the comparison of reliability metrics on the left (including all major events) and the right (excluding major events) demonstrates a relationship between grid reliability and “major event days”, described by the EIA as “any day that exceeds a daily SAIDI threshold”. When all major events are included, the plot shows significant spikes in some years: 2017, 2020, and 2021. Conversely, when major events are excluded, the metrics remain relatively stable over time, suggesting that the underlying reliability of the grid is not significantly affected by increasing renewable energy penetration, and is rather driven by the occurrence of these “major events” that we investigate in section 3.5.</p>
-<div class="cell">
+<p>Higher CAIDI and SAIDI values indicate a less reliable grid where interruptions/outages are either more frequent, take longer to restore, or both.</p>
+<p>In the plot below, the comparison of reliability metrics on the left (including major events) and the right (excluding major events) demonstrates a relationship between grid reliability and “major event days”, described by the EIA as “any day that exceeds a daily SAIDI threshold”. When all major events are included, the plot shows significant spikes in some years: 2017, 2020, and 2021. Conversely, when major events are excluded, the metrics remain relatively stable over time, suggesting that the underlying reliability of the grid is not significantly affected by increasing renewable energy penetration, and is rather driven by the occurrence of these major events that we investigate in section 3.5.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>t1_reliability <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"T1_Reliability.csv"</span>)</span>
@@ -383,17 +383,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1056"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1056"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability"><span class="header-section-number">3.3</span> Is there any correlation/association between renewable penetration and grid reliability?:</h2>
-<div class="cell">
+<h2 data-number="3.3" class="anchored" data-anchor-id="is-there-any-correlationassociation-between-renewable-penetration-and-grid-reliability"><span class="header-section-number">3.3</span> Is there any correlation/association between renewable penetration and grid reliability?</h2>
+<p>We explore the affect of renewable penetration on reliability metrics by plotting the former against the SAIDI reliability index by state. Since the wind doesn’t always blow and the sun doesn’t always shine, one might worry that the growth of renewable penetration, especially over the last decade, has caused higher levels of grid unreliability than other energy sources which operate independently of the weather.</p>
+<p>However, no clear positive correlation appears in the scatter plot below when outage event type is not considered. A split in distribution becomes visible when points are grouped by whether SAIDI is calculated including or excluding major event/outage days. While both groups demonstrate a slightly negative correlation, the group excluding major event days shows the stronger relationship: an increase in renewable penetration correlates with a decrease in average outage duration (SAIDI). This suggests that the country’s increased dependency on wind and solar might indeed not relate to higher unreliability of the grid.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load reliability metrics (SAIDI) from 2013-2023 by state</span></span>
@@ -488,7 +490,7 @@ dbl (3): year, generation, gen_round
 <span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Store scatter plot colored by event grouping type</span></span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> scatter_state_2023_combo, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> w_s_pen, <span class="at">y =</span> SAIDI, <span class="at">color =</span> Event_Grouping)) <span class="sc">+</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">7</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">7</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># coord_cartesian(ylim = c(0,1850)) + </span></span>
 <span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>()) <span class="sc">+</span></span>
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Renewable Penetration"</span>,</span>
@@ -506,215 +508,208 @@ dbl (3): year, generation, gen_round
 <span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Store second scatter plot, a version zoomed in on without major event days that includes a regression</span></span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(scatter_state_2023_combo, Event_Grouping <span class="sc">==</span> <span class="st">'Without Major Event Days'</span>), <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> w_s_pen, <span class="at">y =</span> SAIDI)) <span class="sc">+</span></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">7</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">'#31bdc3'</span>) <span class="sc">+</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">7</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">'#31bdc3'</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">filter</span>(scatter_state_2023_combo, Event_Grouping <span class="sc">==</span> <span class="st">'Without Major Event Days'</span>),</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">'lm'</span>,</span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">'#1d7276'</span>) <span class="sc">+</span></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">35</span>, <span class="at">y =</span> <span class="dv">125</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Correlation:"</span>, <span class="fu">round</span>(cc, <span class="dv">3</span>))) <span class="sc">+</span></span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">450</span>)) <span class="sc">+</span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>()) <span class="sc">+</span></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Renewable Penetration"</span>,</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Average Outage Duration (SAIDI)"</span>) <span class="sc">+</span></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Patch plots together</span></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>plot2 <span class="sc">+</span> plot3 <span class="sc">+</span></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">2.3</span>)) <span class="sc">+</span></span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">'Average Outage Duration (SAIDI) by Renewable Penetration With and Without Major Events in 2023'</span>,</span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>                  <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">'lm'</span>,</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">'#1d7276'</span>,</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>              <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">35</span>, <span class="at">y =</span> <span class="dv">125</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Correlation:"</span>, <span class="fu">round</span>(cc, <span class="dv">3</span>))) <span class="sc">+</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">450</span>)) <span class="sc">+</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>()) <span class="sc">+</span></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Renewable Penetration"</span>,</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Average Outage Duration (SAIDI)"</span>) <span class="sc">+</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Patch plots together</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>plot2 <span class="sc">+</span> plot3 <span class="sc">+</span></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">2.3</span>)) <span class="sc">+</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">'Average Outage Duration (SAIDI) by Renewable Penetration With and Without Major Events in 2023'</span>,</span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>                  <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
-(`geom_point()`).</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing non-finite outside the scale range (`stat_smooth()`).
-Removed 1 row containing missing values or values outside the scale range
-(`geom_point()`).</code></pre>
-</div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1152"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
+<p>Visualizing this conclusion with mosaic plots further highlights the variables’ negative correlation, even when major event days were included. (Since both renewable penetration and reliability metrics are continuous variables, we first set a threshold at their respective medians and within each event grouping to then sort states into categories.) Notice that the plots similarly exhibit an inverse relationship between renewable penetration and outage duration regardless of major event days.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store median of renewable penetration and of SAIDI with major events</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>all_events_pen_med <span class="ot">&lt;-</span> <span class="fu">median</span>(scatter_state_2023<span class="sc">$</span>w_s_pen)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>all_events_SAIDI_med <span class="ot">&lt;-</span> <span class="fu">median</span>(scatter_state_2023<span class="sc">$</span>SAIDI)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prep data with major events for mosaic plot</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>all_events_mos <span class="ot">&lt;-</span> scatter_state_2023 <span class="sc">|&gt;</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Penetration =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(w_s_pen <span class="sc">&gt;=</span> all_events_pen_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>)),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">SAIDI =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(SAIDI <span class="sc">&gt;=</span> all_events_SAIDI_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>w_s_pen)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Store median of renewable penetration and of SAIDI without major events</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>no_major_pen_med <span class="ot">&lt;-</span> <span class="fu">median</span>(no_hawaii<span class="sc">$</span>w_s_pen)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>no_major_SAIDI_med <span class="ot">&lt;-</span> <span class="fu">median</span>(no_hawaii<span class="sc">$</span>SAIDI)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Prep data without major events for mosaic plot</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>no_major_mos <span class="ot">&lt;-</span> no_hawaii <span class="sc">|&gt;</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Penetration =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(w_s_pen <span class="sc">&gt;=</span> no_major_pen_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>)),</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">SAIDI =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(SAIDI <span class="sc">&gt;=</span> no_major_SAIDI_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>w_s_pen)</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Create mosaic plots for both event grouping types</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(SAIDI <span class="sc">~</span> Penetration, all_events_mos, <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>, <span class="st">"h"</span>),</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"All Events (With Major Event Days)"</span>,</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">highlighting_fill =</span> <span class="fu">c</span>(<span class="st">'#f37a717F'</span>,<span class="st">'#f37a71'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store median of renewable penetration and of SAIDI with major events</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>all_events_pen_med <span class="ot">&lt;-</span> <span class="fu">median</span>(scatter_state_2023<span class="sc">$</span>w_s_pen)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>all_events_SAIDI_med <span class="ot">&lt;-</span> <span class="fu">median</span>(scatter_state_2023<span class="sc">$</span>SAIDI)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prep data with major events for mosaic plot</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>all_events_mos <span class="ot">&lt;-</span> scatter_state_2023 <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Penetration =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(w_s_pen <span class="sc">&gt;=</span> all_events_pen_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>)),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">SAIDI =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(SAIDI <span class="sc">&gt;=</span> all_events_SAIDI_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>w_s_pen)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Store median of renewable penetration and of SAIDI without major events</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>no_major_pen_med <span class="ot">&lt;-</span> <span class="fu">median</span>(no_hawaii<span class="sc">$</span>w_s_pen)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>no_major_SAIDI_med <span class="ot">&lt;-</span> <span class="fu">median</span>(no_hawaii<span class="sc">$</span>SAIDI)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Prep data without major events for mosaic plot</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>no_major_mos <span class="ot">&lt;-</span> no_hawaii <span class="sc">|&gt;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Penetration =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(w_s_pen <span class="sc">&gt;=</span> no_major_pen_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>)),</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">SAIDI =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(SAIDI <span class="sc">&gt;=</span> no_major_SAIDI_med, <span class="st">'Above'</span>, <span class="st">'States below median'</span>),</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'States below median'</span>,<span class="st">'Above'</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>w_s_pen)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Create mosaic plots for both event grouping types</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(SAIDI <span class="sc">~</span> Penetration, all_events_mos, <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>, <span class="st">"h"</span>),</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"All Events (With Major Event Days)"</span>,</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">highlighting_fill =</span> <span class="fu">c</span>(<span class="st">'#f37a717F'</span>,<span class="st">'#f37a71'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(SAIDI <span class="sc">~</span> Penetration, no_major_mos, <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>, <span class="st">"h"</span>),</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">'No Major Event Days'</span>,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">highlighting_fill =</span> <span class="fu">c</span>(<span class="st">'#31bdc37F'</span>,<span class="st">'#31bdc3'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(SAIDI <span class="sc">~</span> Penetration, no_major_mos, <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>, <span class="st">"h"</span>),</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">'No Major Event Days'</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">highlighting_fill =</span> <span class="fu">c</span>(<span class="st">'#31bdc37F'</span>,<span class="st">'#31bdc3'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>The information provided by both plot types not only contradicts worry that renewable energy, dependent on intermittent sources, takes a toll on reliable energy generation within the US. It also suggests the possibility that increased renewable energy positively affects the grid. Moreover, the difference in correlation when major event days are included or excluded leads us to wonder if another factor is at play.</p>
 </section>
 <section id="are-there-geographic-trends" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="are-there-geographic-trends"><span class="header-section-number">3.4</span> Are there geographic trends?</h2>
-<div class="cell">
+<p>To begin exploring a second factor, it helps us to know which states had the highest amounts of interruptions across the last decade, no matter the reason. The Cleveland dot plot below shows the sum of SAIDI by state from 2013 to 2023, which reveals the states with the least reliable energy generation at the top. (Hawaii is excluded for missing data.) Louisiana, Maine, and West Virginia float to the top when all events are considered but with a key distinction. West Virginia’s two sums are significantly closer than those of Louisiana and Maine, suggesting different reasons behind their outages. We imagine that West Virginia may simply have a problematic grid, whereas Louisiana and Maine may experience volatile, external impacts. The next step is to search for that volatility.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum SAIDI across the decade of data with all major events</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>decade_SAIDI_all <span class="ot">&lt;-</span> data_rbs <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">!=</span> <span class="st">'HI'</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">SAIDI_all =</span> <span class="fu">sum</span>(SAIDI))</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum SAIDI across the decade of data without major events</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>decade_SAIDI_nm <span class="ot">&lt;-</span> t4_rbs <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">'CT'</span><span class="sc">:</span><span class="st">'HI'</span>),<span class="at">names_to =</span> <span class="st">'state'</span>, <span class="at">values_to =</span> <span class="st">'SAIDI'</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Method <span class="sc">==</span> <span class="st">'IEEE'</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>         Event_Grouping <span class="sc">==</span> <span class="st">'Without Major Event Days'</span>,</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>         state <span class="sc">!=</span> <span class="st">'HI'</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">SAIDI_nm =</span> <span class="fu">sum</span>(SAIDI))</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Join datasets</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">&lt;-</span> decade_SAIDI_all <span class="sc">|&gt;</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(decade_SAIDI_nm, <span class="at">by =</span> <span class="st">'state'</span>)</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Order states by SAIDI with all major events</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>bar<span class="sc">$</span>state <span class="ot">&lt;-</span> <span class="fu">reorder</span>(bar<span class="sc">$</span>state, bar<span class="sc">$</span>SAIDI_all)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Cleveland dotplot colored by event grouping type</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bar, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> state, <span class="at">x =</span> SAIDI_all, <span class="at">color =</span> <span class="st">'All Events (With Major Event Days)'</span>)) <span class="sc">+</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> SAIDI_nm, <span class="at">color =</span> <span class="st">'Without Major Event Days'</span>)) <span class="sc">+</span></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>)) <span class="sc">+</span></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Total Average Outage Duration (SAIDI)'</span>,</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'State'</span>,</span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Total Average Outage Duration (SAIDI) by State from 2013-2023'</span>,</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">'Outage Event Grouping'</span>) <span class="sc">+</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum SAIDI across the decade of data with all major events</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>decade_SAIDI_all <span class="ot">&lt;-</span> data_rbs <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">!=</span> <span class="st">'HI'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">SAIDI_all =</span> <span class="fu">sum</span>(SAIDI))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum SAIDI across the decade of data without major events</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>decade_SAIDI_nm <span class="ot">&lt;-</span> t4_rbs <span class="sc">|&gt;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">'CT'</span><span class="sc">:</span><span class="st">'HI'</span>),<span class="at">names_to =</span> <span class="st">'state'</span>, <span class="at">values_to =</span> <span class="st">'SAIDI'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Method <span class="sc">==</span> <span class="st">'IEEE'</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>         Event_Grouping <span class="sc">==</span> <span class="st">'Without Major Event Days'</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>         state <span class="sc">!=</span> <span class="st">'HI'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">SAIDI_nm =</span> <span class="fu">sum</span>(SAIDI))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Join datasets</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">&lt;-</span> decade_SAIDI_all <span class="sc">|&gt;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(decade_SAIDI_nm, <span class="at">by =</span> <span class="st">'state'</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Order states by SAIDI with all major events</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>bar<span class="sc">$</span>state <span class="ot">&lt;-</span> <span class="fu">reorder</span>(bar<span class="sc">$</span>state, bar<span class="sc">$</span>SAIDI_all)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Cleveland dotplot colored by event grouping type</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bar, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> state, <span class="at">x =</span> SAIDI_all, <span class="at">color =</span> <span class="st">'All Events (With Major Event Days)'</span>)) <span class="sc">+</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> SAIDI_nm, <span class="at">color =</span> <span class="st">'Without Major Event Days'</span>)) <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>)) <span class="sc">+</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Total Average Outage Duration (SAIDI)'</span>,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'State'</span>,</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Total Average Outage Duration (SAIDI) by State from 2013-2023'</span>,</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">'Outage Event Grouping'</span>) <span class="sc">+</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We want to investigate if any states stand out when we focusing on high SAIDI years, when including all events. In other words, what states are responsible for “Major Events” in high-disruption years.</p>
-<p>By mapping total outage hours across high-disruption years (2017, 2020, 2021), this plot highlights states disproportionately affected by outages. We suspect this is due to extreme weather events such as winter storms and hurricanes, underscoring the intersection of climate resilience and energy grid reliability.</p>
+<p>The high SAIDI years from the grid reliability metrics line graph provide an efficient starting place for our search. We want to investigate if any states stand out when we focus on those years and include all events. In other words, our goal is to identify which states were most impacted by “Major Events” in high-disruption years.</p>
+<p>Mapping total outage hours across high-disruption years (2017, 2020, 2021) highlights the states disproportionately affected by outages. We suspect this is due to severe, regional weather events, such as winter storms and hurricanes, underscoring the intersection of climate resilience and energy grid reliability.</p>
 <ul>
 <li>In 2017: Maine, Vermont, and Florida stand out</li>
 <li>In 2020: Maine, Connecticut, Mississippi, Alabama, and Louisiana stand out</li>
 <li>In 2021: Texas, Oregon, and Louisiana stand out</li>
 </ul>
-<p>To provide a clearer perspective, the outage values are capped at 24 hours, representing a cumulative full day of outages over the course of a year. This approach highlights states with particularly disruptive events while maintaining focus on severe reliability issues. Without capping, we risk losing important granularity, as excessively high values from outlier events could overshadow state-by-state comparisons and trends.</p>
-<div class="cell">
+<p>To provide a clearer perspective, the outage values are capped at 24 hours, which represents a cumulative full day of outages over the course of one year. This approach uncovers states with particularly disruptive events while maintaining focus on severe reliability issues. Without capping, we risk losing important granularity since excessively high values from outlier events could overshadow state-by-state comparisons and trends.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data5 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"T4_ReliabilityByState.csv"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># State abbreviations and full names</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>state_abbrev <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_full =</span> <span class="fu">tolower</span>(state.name),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_abbrev =</span> state.abb</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>filtered_data5 <span class="ot">&lt;-</span> data5 <span class="sc">|&gt;</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Method <span class="sc">==</span> <span class="st">"IEEE"</span>, </span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>         Event_Grouping <span class="sc">==</span> <span class="st">"All Events (With Major Event Days)"</span>,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>         Census_Division <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2020</span>, <span class="dv">2021</span>),</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(Census_Division)) <span class="sc">|&gt;</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Method, <span class="sc">-</span>Event_Grouping, <span class="sc">-</span>HI, <span class="sc">-</span>AK)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data into a long format</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>long_data5 <span class="ot">&lt;-</span> filtered_data5 <span class="sc">|&gt;</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Census_Division, <span class="at">names_to =</span> <span class="st">"state_abbrev"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert values from minutes to hours and cap at 24 hours</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>long_data5 <span class="ot">&lt;-</span> long_data5 <span class="sc">|&gt;</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">pmin</span>(value <span class="sc">/</span> <span class="dv">60</span>, <span class="dv">24</span>)) </span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Load state geometries</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"state"</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> us_states <span class="sc">|&gt;</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state_full =</span> ID) <span class="sc">|&gt;</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(state_abbrev, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"state_full"</span> <span class="ot">=</span> <span class="st">"state_full"</span>)) </span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge data with geometries</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>mapped_data <span class="ot">&lt;-</span> us_states <span class="sc">|&gt;</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(long_data5, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"state_abbrev"</span> <span class="ot">=</span> <span class="st">"state_abbrev"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev <span class="sc">!=</span> <span class="st">"DC"</span>)</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the map with facets for Census Division</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mapped_data) <span class="sc">+</span></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"viridis"</span>, <span class="at">na.value =</span> <span class="st">"gray80"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">24</span>)) <span class="sc">+</span></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"U.S. Outage Hours by State in High-Disruption Years"</span>,</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">" Total Outage Hours</span><span class="sc">\n</span><span class="st"> (Capped at 24H)"</span>) <span class="sc">+</span></span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Census_Division, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># Facet by Census Division</span></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>) </span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data5 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"T4_ReliabilityByState.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># State abbreviations and full names</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>state_abbrev <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_full =</span> <span class="fu">tolower</span>(state.name),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_abbrev =</span> state.abb</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>filtered_data5 <span class="ot">&lt;-</span> data5 <span class="sc">|&gt;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Method <span class="sc">==</span> <span class="st">"IEEE"</span>, </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>         Event_Grouping <span class="sc">==</span> <span class="st">"All Events (With Major Event Days)"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>         Census_Division <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2020</span>, <span class="dv">2021</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(Census_Division)) <span class="sc">|&gt;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Method, <span class="sc">-</span>Event_Grouping, <span class="sc">-</span>HI, <span class="sc">-</span>AK)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data into a long format</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>long_data5 <span class="ot">&lt;-</span> filtered_data5 <span class="sc">|&gt;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Census_Division, <span class="at">names_to =</span> <span class="st">"state_abbrev"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert values from minutes to hours and cap at 24 hours</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>long_data5 <span class="ot">&lt;-</span> long_data5 <span class="sc">|&gt;</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">pmin</span>(value <span class="sc">/</span> <span class="dv">60</span>, <span class="dv">24</span>)) </span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Load state geometries</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">"state"</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> us_states <span class="sc">|&gt;</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state_full =</span> ID) <span class="sc">|&gt;</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(state_abbrev, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"state_full"</span> <span class="ot">=</span> <span class="st">"state_full"</span>)) </span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge data with geometries</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>mapped_data <span class="ot">&lt;-</span> us_states <span class="sc">|&gt;</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(long_data5, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"state_abbrev"</span> <span class="ot">=</span> <span class="st">"state_abbrev"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev <span class="sc">!=</span> <span class="st">"DC"</span>)</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the map with facets for Census Division</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mapped_data) <span class="sc">+</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"viridis"</span>, <span class="at">na.value =</span> <span class="st">"gray80"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">24</span>)) <span class="sc">+</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"U.S. Outage Hours by State in High-Disruption Years"</span>,</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">" Total Outage Hours</span><span class="sc">\n</span><span class="st"> (Capped at 24H)"</span>) <span class="sc">+</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Census_Division, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># Facet by Census Division</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>) </span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="confirming-that-these-standouts-are-caused-by-extreme-weather-events" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="confirming-that-these-standouts-are-caused-by-extreme-weather-events"><span class="header-section-number">3.5</span> Confirming that these standouts are caused by extreme weather events:</h2>
-<p>Each high-disruption states and year can be linked to an of extreme weather event, such as a winter storm, a hurricane or a tornado. By year, the events are as follows:</p>
+<h2 data-number="3.5" class="anchored" data-anchor-id="confirming-that-these-standouts-are-caused-by-extreme-weather-events"><span class="header-section-number">3.5</span> Confirming that these standouts are caused by extreme weather events</h2>
+<p>Each high-disruption state and year can be linked to an of extreme weather event, such as a winter storm, hurricane or tornado. By year, the events are as follows:</p>
 <ul>
 <li><strong>2017</strong>:
 <ul>
@@ -737,48 +732,194 @@ Removed 1 row containing missing values or values outside the scale range
 <li>Louisiana: <a href="https://en.wikipedia.org/wiki/Hurricane_Ida">September Hurricane Ida</a></li>
 </ul></li>
 </ul>
-<p>The news articles and websites linked above tie these weather events to power outages, and the plot below confirms that this daily outage minutes spike in times of extreme weather. The plot shows daily outage metrics in Texas over the course of 2021, with the dates of Winter Storm Uri (February 10-25) highlighted in blue. As we expected, the highest number of outage minutes, by a large measure, lands within these storm days.</p>
-<div class="cell">
+<p>The news articles and websites linked above tie these weather events to power outages, and the plot below confirms that daily outage minutes spike in times of extreme weather. The plot shows a daily outage metric in Texas over the course of 2021, with the dates of Winter Storm Uri (February 10-25) highlighted in yellow. As we expected, the highest number of outage minutes, by a large measure, lands within these storm days.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>saidi_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Texas_Daily_SAIDI.csv"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Date column to Date type</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>saidi_data<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(saidi_data<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%m/%d/%y"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>highlight_period <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2021-02-10"</span>),</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2021-02-25"</span>),</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"Winter Storm Uri"</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(saidi_data, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Daily.SAIDI)) <span class="sc">+</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">data =</span> highlight_period, </span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax, <span class="at">fill =</span> label),</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Winter Storm Uri"</span> <span class="ot">=</span> <span class="st">"#f3ff52"</span>)) <span class="sc">+</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#3c5c8a"</span>, <span class="at">linewidth =</span> .<span class="dv">75</span>) <span class="sc">+</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Daily Outage Duration (SAIDI) in Texas in 2021"</span>,</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Daily Outage Duration (SAIDI)"</span>) <span class="sc">+</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>saidi_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Texas_Daily_SAIDI.csv"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Date column to Date type</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>saidi_data<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(saidi_data<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%m/%d/%y"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>highlight_period <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2021-02-10"</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2021-02-25"</span>),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"Winter Storm Uri"</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(saidi_data, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Daily.SAIDI)) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">data =</span> highlight_period, </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax, <span class="at">fill =</span> label),</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Winter Storm Uri"</span> <span class="ot">=</span> <span class="st">"#f3ff52"</span>)) <span class="sc">+</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#3c5c8a"</span>, <span class="at">linewidth =</span> .<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Daily Outage Duration (SAIDI) in Texas in 2021"</span>,</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Daily Outage Duration (SAIDI)"</span>) <span class="sc">+</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="results_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="the-economic-case-for-renewables" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="the-economic-case-for-renewables"><span class="header-section-number">3.6</span> The economic case for renewables:</h2>
+<section id="insert-last-topic" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="insert-last-topic"><span class="header-section-number">3.6</span> [INSERT LAST TOPIC]</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'StateAreaMeasurements.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 51 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): state
+dbl (3): total, land, water
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>area_rbs <span class="ot">&lt;-</span> rbs_2023_combo <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(area, <span class="at">by =</span> <span class="st">'state'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>area_rbs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 102 × 6
+   state SAIDI Event_Grouping                     total  land water
+   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 CT     193. All Events (With Major Event Days)  5543  4842   701
+ 2 ME    1863  All Events (With Major Event Days) 35380 30843  4537
+ 3 MA     265. All Events (With Major Event Days) 10554  7800  2754
+ 4 NH     591. All Events (With Major Event Days)  9349  8953   397
+ 5 RI     105. All Events (With Major Event Days)  1545  1034   511
+ 6 VT     486. All Events (With Major Event Days)  9616  9217   400
+ 7 NJ     108. All Events (With Major Event Days)  8723  7354  1368
+ 8 NY     205. All Events (With Major Event Days) 54555 47126  7429
+ 9 PA     265. All Events (With Major Event Days) 46054 44743  1312
+10 IL     210. All Events (With Major Event Days) 57914 55519  2395
+# ℹ 92 more rows</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(area_rbs, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> total, <span class="at">y =</span> SAIDI, <span class="at">color =</span> Event_Grouping)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>area_rbs <span class="ot">&lt;-</span> rbs_2023_combo <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(area, <span class="at">by =</span> <span class="st">'state'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Event_Grouping <span class="sc">==</span> <span class="st">'Without Major Event Days'</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>area_rbs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 6
+   state SAIDI Event_Grouping           total  land water
+   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 CT     77.7 Without Major Event Days  5543  4842   701
+ 2 ME    247.  Without Major Event Days 35380 30843  4537
+ 3 MA     83.5 Without Major Event Days 10554  7800  2754
+ 4 NH     89.3 Without Major Event Days  9349  8953   397
+ 5 RI     52.2 Without Major Event Days  1545  1034   511
+ 6 VT    204.  Without Major Event Days  9616  9217   400
+ 7 NJ     88   Without Major Event Days  8723  7354  1368
+ 8 NY    130.  Without Major Event Days 54555 47126  7429
+ 9 PA    126.  Without Major Event Days 46054 44743  1312
+10 IL     56.2 Without Major Event Days 57914 55519  2395
+# ℹ 41 more rows</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(area_rbs, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> total, <span class="at">y =</span> SAIDI)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>area_rbs <span class="ot">&lt;-</span> rbs_2023_combo <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(area, <span class="at">by =</span> <span class="st">'state'</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>area_rbs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 102 × 6
+   state SAIDI Event_Grouping                     total  land water
+   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 CT     193. All Events (With Major Event Days)  5543  4842   701
+ 2 ME    1863  All Events (With Major Event Days) 35380 30843  4537
+ 3 MA     265. All Events (With Major Event Days) 10554  7800  2754
+ 4 NH     591. All Events (With Major Event Days)  9349  8953   397
+ 5 RI     105. All Events (With Major Event Days)  1545  1034   511
+ 6 VT     486. All Events (With Major Event Days)  9616  9217   400
+ 7 NJ     108. All Events (With Major Event Days)  8723  7354  1368
+ 8 NY     205. All Events (With Major Event Days) 54555 47126  7429
+ 9 PA     265. All Events (With Major Event Days) 46054 44743  1312
+10 IL     210. All Events (With Major Event Days) 57914 55519  2395
+# ℹ 92 more rows</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(area_rbs, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> land, <span class="at">y =</span> SAIDI, <span class="at">color =</span> Event_Grouping)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
