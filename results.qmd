@@ -458,7 +458,7 @@ ggplot(saidi_data, aes(x = Date, y = Daily.SAIDI)) +
 
 ## Does outage duration differ among types of severe weather?
 
-In fact, by looking at Texas across multiple years alongside all its severe weather events within the same time frame, we can analyze if there are any differences among the effects on SAIDI by types of severe weather. (Texas experienced nearly every weather disaster type listed by the NOAA, so it suffices to view Texas alone.) The plot below shows other daily SAIDI peaks, many of which are covered or initiated by weather events in yellow. Notice that the location patterns of the weather events relative to the peaks are not the same, nor are the size of the peaks they cover.
+In fact, by looking at Texas across multiple years alongside all its severe weather events within the same time frame, we can analyze if there are any differences among the effects on SAIDI by types of severe weather. (Texas experienced nearly every weather disaster type listed by the National Oceanic and Atmospheric Administration, so it suffices to view Texas alone.) The plot below shows other daily SAIDI peaks, many of which are covered or initiated by weather events in yellow. Notice that the location patterns of the weather events relative to the peaks are not the same, nor are the size of the peaks they cover.
 
 ```{r, fig.align = 'center', fig.width = 12, fig.height = 5}
 # Load Texas's daily reliability data
@@ -490,9 +490,9 @@ ggplot(weather_SAIDI, aes(x = date, y = Daily.SAIDI)) +
              na.rm = TRUE) +
   coord_cartesian(xlim = c(as.Date('2015-01-01'),as.Date('2022-12-31'))) +
   labs(title = 'Daily Outage Duration (SAIDI) in Texas with Weather Disasters from 2015-2022',
+       x = NULL,
        y = 'Daily Outage Duration (SAIDI)') +
-  theme_minimal() +
-  theme(axis.title.x = element_blank())
+  theme_minimal()
 ```
 
 By calculating the mean daily SAIDI by weather disaster type, we learn that, at least on Texas's power grid, different disasters have historically affected energy generation by differing levels of severity. Shown below, winter storms were by far the most interruptive for Texas over this time period, likely due to extreme Winter Storm Uri. The second highest interrupter was tropical cyclones, and the other three disaster types of severe storms, flooding, and wildfires trailed behind.
@@ -518,6 +518,4 @@ ggplot(means, mapping = aes(x = disaster, y = mean_SAIDI, fill = disaster)) +
   theme_minimal() +
   theme(legend.position = 'none')
 ```
-
-
 

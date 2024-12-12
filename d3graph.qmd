@@ -4,7 +4,7 @@ Our exploration of the EIA's data regarding renewable energy integration and gri
 
 The National Centers For Environmental Information and [NOAA](https://www.ncei.noaa.gov/access/billions/events/US/1990-2024?disasters[]=all-disasters) have a database of weather and climate disasters, and they keep track of the ones that caused damages over $1 billion.
 
-## How to interact with this graph:
+## How to interact with this graph
 
 To explore this data and to discover the trend in the frequency of these events, click through the checkboxes below to unveil the number of each of these climate disasters where overall damages/costs reached or exceeded $1 billion.
 
