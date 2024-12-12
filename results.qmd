@@ -140,7 +140,7 @@ ggplot(data3_long, aes(x = Year, y = Value, color = Metric)) +
   geom_line(linewidth = 1.2) +
   scale_x_continuous(breaks = seq(2013, 2023, 1)) +
   scale_y_continuous(limits = c(0, 550), expand = c(0, 0)) + 
-  scale_color_manual(values = c("SAIDI" = 'black',"CAIDI" = 'snow4'),
+  scale_color_manual(values = c("SAIDI" = '#3c5c8a',"CAIDI" = 'gray70'),
                      breaks = c("SAIDI","CAIDI")) +
   labs(title = "Reliability Metrics (2013–2023)",
        x = "Year",
@@ -153,11 +153,15 @@ ggplot(data3_long, aes(x = Year, y = Value, color = Metric)) +
   theme(legend.position = 'bottom')
 ```
 
+<<<<<<< HEAD
 ## Is there any correlation between renewable penetration and grid reliability?
 
 We explore the affect of renewable penetration on reliability metrics by plotting the former against the SAIDI reliability index by state. Since the wind doesn't always blow and the sun doesn't always shine, one might worry that the growth of renewable penetration, especially over the last decade, has caused higher levels of grid unreliability than other energy sources which operate independently of the weather.
 
 However, no clear positive correlation appears in the scatter plot below when outage event type is not considered. A split in distribution becomes visible when points are grouped by whether SAIDI is calculated including or excluding major event/outage days. While both groups demonstrate a slightly negative correlation, the group excluding major event days shows the stronger relationship: an increase in renewable penetration correlates with a decrease in average outage duration (SAIDI). This suggests that the country's increased dependency on wind and solar might indeed not relate to higher unreliability of the grid.
+=======
+## Is there any correlation/association between renewable penetration and grid reliability?:
+>>>>>>> 30420b98446bf45d3257d88fccb0aa392b679fb8
 
 ```{r, fig.width = 12}
 # Load reliability metrics (SAIDI) from 2013-2023 by state
@@ -296,7 +300,11 @@ mosaic(SAIDI ~ Penetration, no_major_mos, direction = c("v", "h"),
 
 The information provided by both plot types not only contradicts worry that renewable energy, dependent on intermittent sources, takes a toll on reliable energy generation within the US. It also suggests the possibility that increased renewable energy positively affects the grid. Moreover, the difference in correlation when major event days are included or excluded leads us to wonder if another factor is at play.
 
+<<<<<<< HEAD
 ## Is there a meteoric explanation?
+=======
+## Are there geographic trends?
+>>>>>>> 30420b98446bf45d3257d88fccb0aa392b679fb8
 
 To begin exploring a second factor, it helps us to know which states had the highest amounts of interruptions across the last decade, no matter the reason. The Cleveland dot plot below shows the sum of SAIDI by state from 2013 to 2023, which reveals the states with the least reliable energy generation at the top. (Hawaii is excluded for missing data.) Louisiana, Maine, and West Virginia float to the top when all events are considered but with a key distinction. West Virginia's two sums are significantly closer than those of Louisiana and Maine, suggesting different reasons behind their outages. We imagine that West Virginia may simply have a problematic grid, whereas Louisiana and Maine may experience volatile, external impacts. The next step is to search for that volatility.
 
@@ -442,7 +450,7 @@ ggplot(saidi_data, aes(x = Date, y = Daily.SAIDI)) +
             aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = label),
             alpha = 0.8, inherit.aes = FALSE) +
   scale_fill_manual(name = "", values = c("Winter Storm Uri" = "#f3ff52")) +
-  geom_line(color = "black", linewidth = .75) +
+  geom_line(color = "#3c5c8a", linewidth = .75) +
   labs(title = "Daily Outage Duration (SAIDI) in Texas in 2021",
        x = NULL,
        y = "Daily Outage Duration (SAIDI)") +
