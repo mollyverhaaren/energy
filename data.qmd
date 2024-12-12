@@ -8,7 +8,7 @@
 We will be using datasets from the U.S. Energy Information Administration (EIA), an agency within the U.S. Department of Energy. The role of the agency is to collect, analyze, and provide access to energy information to the public, industry stakeholders, and policymakers. EIA data is collected through monitoring systems, surveys, and collaboration with industry, state, and federal agencies.
 
 
-### Format of the data, the frequency of updates, dimensions, and any other relevant information:
+### Data format, frequency of updates, dimensions, and other information
 We will be using 3 different tables posted on the EIA website with data presented in HTML table format that contains grid reliability metrics of the U.S. Distribution system. These tables are updated annually with the latest data available through 2023. These tables include the following:
 
 
@@ -30,21 +30,21 @@ We will also be using an Excel spreadsheet (.xlsx) containing the EIA-860 Annual
 - Nameplate Capacity: MW Capacity of each fuel source
 
 
-### Data issues:
+### Data issues
 
 
 - Since all data sources used are only at the state level, we will manually create ISO groupings when exploring the second question of our analysis
 - We will assume that hydroelectric and nuclear energy provide stable enough renewable integration to be negligible when studying grid reliability, so we will consider only wind and solar throughout our analysis
 
 
-### Importing the data:
+### Importing the data
 
 
 - The HTML EIA-861 tables can be copy and pasted into Excel documents and the data can be imported into R as a csv.
 - The Excel EIA-860 document can be imported into R as a csv.
 
 
-### Data sources:
+### Data sources
 
 
 **Reliability Metrics of U.S. Distribution System (EIA-861): **
@@ -72,26 +72,19 @@ We will also be using an Excel spreadsheet (.xlsx) containing the EIA-860 Annual
 
 ## Missing value analysis
 
-### Load necessary libraries
-
 ```{r}
+# Load necessary libraries
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(readr))
-```
 
-### Load data
-
-```{r}
+# Load data
 data1 <- read_csv('Table1.csv', show_col_types = FALSE)
 data2 <- read_csv('Table2.csv', show_col_types = FALSE)
 data4 <- read_csv('Table4.csv', show_col_types = FALSE)
-```
 
-### Prepare data for missing values plot
-
-```{r}
+# Prepare data for missing values plot
 data1_plot <- data1 |>
   pivot_longer(cols = -Year) |>
   mutate(Missing = ifelse(is.na(value), 'Yes', 'No')) |>
@@ -106,9 +99,8 @@ data4_plot <- data4 |>
   mutate(Missing = ifelse(is.na(value), 'Yes', 'No'))
 ```
 
-### Missing values for each table
+### Table 11.1
 
-#### Table 11.1
 ```{r, fig.width = 10, fig.height = 5}
 ggplot(data1_plot, aes(x = name, y = fct_rev(Year), fill = Missing)) +
   geom_tile(color = 'white') +
@@ -121,7 +113,8 @@ ggplot(data1_plot, aes(x = name, y = fct_rev(Year), fill = Missing)) +
 
 Table 11.1 contains "Reliability Metrics of U.S. Distribution System" by year from 2013 to 2023 for multiple reliability metrics and 2 calculation methods. There are no missing values in this table.
 
-#### Table 11.2
+### Table 11.2
+
 ```{r, fig.width = 10, fig.height = 12}
 ggplot(data2_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
   geom_tile(color = 'white') +
@@ -134,7 +127,8 @@ ggplot(data2_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
 
 Table 11.2 contains "Reliability Metrics Using IEEE of U.S. Distribution System by State" by year for 2022 to 2023 for multiple reliability metrics. The state of Hawaii is missing values for many of these reliability metrics. Hawaii's grid operates very differently to other states' grids so we will choose to exclude Hawaii in our analysis, and rather focus on the continental United States (all states excluding Hawaii). All other states have no missing data in this table.
 
-#### Table 11.4
+### Table 11.4
+
 ```{r, fig.width = 24, fig.height = 12}
 ggplot(data4_plot, aes(x = name, y = fct_rev(State), fill = Missing)) +
   geom_tile(color = 'white') +

@@ -12,6 +12,7 @@ suppressPackageStartupMessages(library(readr))
 suppressPackageStartupMessages(library(vcd))
 suppressPackageStartupMessages(library(patchwork))
 suppressPackageStartupMessages(library(gridExtra))
+suppressPackageStartupMessages(library(forcats))
 ```
 
 ## Setting the Scene: Renewable Integration in the U.S. Over Time
@@ -161,7 +162,7 @@ However, no clear positive correlation appears in the scatter plot below when ou
 
 ```{r, fig.width = 12, fig.align = 'center'}
 # Load reliability metrics (SAIDI) from 2013-2023 by state
-t4_rbs <- read_csv("T4_ReliabilityByState.csv")
+t4_rbs <- suppressMessages(read_csv("T4_ReliabilityByState.csv"))
 
 # Pivot longer by state and filter to IEEE All Events
 data_rbs <- t4_rbs |>
@@ -183,12 +184,12 @@ rbs_2023_no_major <- t4_rbs |>
   select(state, SAIDI)
 
 # Load renewable penetration from 2023 by state
-state_generation_2023 <- read_csv('state_generation_2023.csv')
+state_generation_2023 <- suppressMessages(read_csv('state_generation_2023.csv'))
 
 # Calculate generation by energy type by state
-state_generation_2023 <- state_generation_2023 |>
+suppressMessages(state_generation_2023 <- state_generation_2023 |>
   group_by(state, source) |>
-  summarise(generation = sum(generation))
+  summarise(generation = sum(generation)))
 
 # Derive renewable penetration from generation
 state_pen_2023 <- state_generation_2023 |>
@@ -254,10 +255,10 @@ plot3 <- ggplot(data = filter(scatter_state_2023_combo, Event_Grouping == 'Witho
   theme_minimal()
 
 # Patch plots together
-plot2 + plot3 +
+suppressWarnings(plot2 + plot3 +
   plot_layout(widths = c(2, 2.3)) +
   plot_annotation(title = 'Average Outage Duration (SAIDI) by Renewable Penetration With and Without Major Events in 2023',
-                  theme = theme(plot.title = element_text(size = 15)))
+                  theme = theme(plot.title = element_text(size = 15))))
 
 ```
 
@@ -402,7 +403,7 @@ ggplot(data = mapped_data) +
 
 ## Confirming that these standouts are caused by extreme weather events
 
-Each high-disruption state and year can be linked to an of extreme weather event, such as a winter storm, hurricane or tornado. By year, the events are as follows:
+Each high-disruption state and year can be linked to an extreme weather event, such as a winter storm, hurricane or tornado. By year, the events are as follows:
 
 - **2017**:
   - Maine: [October Nor’easter Storm](https://en.wikipedia.org/wiki/October_2017_nor%27easter) 
@@ -453,49 +454,68 @@ ggplot(saidi_data, aes(x = Date, y = Daily.SAIDI)) +
 
 ```
 
-## [INSERT LAST TOPIC]
+## Does outage duration differ among types of severe weather?
 
-```{r}
-area <- read_csv('StateAreaMeasurements.csv')
+In fact, by looking at Texas across multiple years alongside all its severe weather events within the same time frame, we can analyze if there are any differences among the effects on SAIDI by types of severe weather. (Texas experienced nearly every weather disaster type listed by the NOAA, so it suffices to view Texas alone.) The plot below shows other daily SAIDI peaks, many of which are covered or initiated by weather events in yellow. Notice that the location patterns of the weather events relative to the peaks are not the same, nor are the size of the peaks they cover.
 
-area_rbs <- rbs_2023_combo |>
-  left_join(area, by = 'state')
+```{r, fig.align = 'center', fig.width = 12, fig.height = 5}
+# Load Texas's daily reliability data
+texas <- suppressMessages(read_csv("Texas_Daily_SAIDI_2015_2022.csv"))
 
-area_rbs
+# Adjust column name
+texas <- texas |>
+  mutate(date = Date) |>
+  select(-Date)
 
-ggplot(area_rbs, mapping = aes(x = total, y = SAIDI, color = Event_Grouping)) +
-  geom_point()
+# Load Texas's weather disaster data from the same time period
+weather <- suppressMessages(read_csv('events-TX-2015-2022.csv'))
+
+# Join datasets
+weather_SAIDI <- weather |>
+  left_join(texas, by = 'date')
+
+# Plot daily SAIDI with all weather disasters marked
+ggplot(weather_SAIDI, aes(x = date, y = Daily.SAIDI)) +
+  geom_line(data = texas,
+              aes(x = date, y = Daily.SAIDI),
+            linewidth = .75,
+            color = '#3c5c8a') +
+  geom_point(size = 4,
+             shape = 21,
+             fill = '#f3ff52',
+             color = '#3c5c8a',
+             alpha = .7,
+             na.rm = TRUE) +
+  coord_cartesian(xlim = c(as.Date('2015-01-01'),as.Date('2022-12-31'))) +
+  labs(title = 'Daily Outage Duration (SAIDI) in Texas with Weather Disasters from 2015-2022',
+       y = 'Daily Outage Duration (SAIDI)') +
+  theme_minimal() +
+  theme(axis.title.x = element_blank())
 ```
 
+By calculating the mean daily SAIDI by weather disaster type, we learn that, at least on Texas's power grid, different disasters have historically affected energy generation by differing levels of severity. Shown below, winter storms were by far the most interruptive for Texas over this time period, likely due to extreme Winter Storm Uri. The second highest interrupter was tropical cyclones, and the other three disaster types of severe storms, flooding, and wildfires trailed behind.
 
-```{r}
-area_rbs <- rbs_2023_combo |>
-  left_join(area, by = 'state') |>
-  filter(Event_Grouping == 'Without Major Event Days')
+```{r, fig.align = 'center'}
+# Calculate mean daily SAIDI by disaster
+means <- weather_SAIDI |>
+  select(disaster, Daily.SAIDI) |>
+  filter(!is.na(Daily.SAIDI)) |>
+  group_by(disaster) |>
+  summarise(mean_SAIDI = mean(Daily.SAIDI))
 
-area_rbs
+# Order weather disaster types by mean SAIDI
+means$disaster <- fct_rev(reorder(means$disaster, means$mean_SAIDI))
 
-ggplot(area_rbs, mapping = aes(x = total, y = SAIDI)) +
-  geom_point() +
-  geom_smooth(method = 'lm')
+# Plot means
+ggplot(means, mapping = aes(x = disaster, y = mean_SAIDI, fill = disaster)) +
+  geom_col() +
+  scale_fill_manual(values = c("Winter Storm" = "#de7ac0", "Tropical Cyclone" = "#9268ba", "Severe Storm" = "#d03330", "Flooding" = "#fa832c", "Wildfire" = "#8a574d")) +
+  labs(title = 'Mean Daily Outage Duration (SAIDI) by Weather Disaster Type\nin Texas from 2015-2022',
+       x = 'Weather Disaster Type',
+       y = 'Mean Daily Outage Duration (SAIDI)') +
+  theme_minimal() +
+  theme(legend.position = 'none')
 ```
-
-
-```{r}
-area_rbs <- rbs_2023_combo |>
-  left_join(area, by = 'state')
-
-area_rbs
-
-ggplot(area_rbs, mapping = aes(x = land, y = SAIDI, color = Event_Grouping)) +
-  geom_point()
-```
-
-
-
-
-
-
 
 
 

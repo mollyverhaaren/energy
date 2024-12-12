@@ -186,17 +186,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a>
   <ul class="collapse">
   <li><a href="#how-are-the-data-collected-and-by-whom" id="toc-how-are-the-data-collected-and-by-whom" class="nav-link" data-scroll-target="#how-are-the-data-collected-and-by-whom"><span class="header-section-number">2.1.1</span> How are the data collected and by whom?</a></li>
-  <li><a href="#format-of-the-data-the-frequency-of-updates-dimensions-and-any-other-relevant-information" id="toc-format-of-the-data-the-frequency-of-updates-dimensions-and-any-other-relevant-information" class="nav-link" data-scroll-target="#format-of-the-data-the-frequency-of-updates-dimensions-and-any-other-relevant-information"><span class="header-section-number">2.1.2</span> Format of the data, the frequency of updates, dimensions, and any other relevant information:</a></li>
-  <li><a href="#data-issues" id="toc-data-issues" class="nav-link" data-scroll-target="#data-issues"><span class="header-section-number">2.1.3</span> Data issues:</a></li>
-  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data"><span class="header-section-number">2.1.4</span> Importing the data:</a></li>
-  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources"><span class="header-section-number">2.1.5</span> Data sources:</a></li>
+  <li><a href="#data-format-frequency-of-updates-dimensions-and-other-information" id="toc-data-format-frequency-of-updates-dimensions-and-other-information" class="nav-link" data-scroll-target="#data-format-frequency-of-updates-dimensions-and-other-information"><span class="header-section-number">2.1.2</span> Data format, frequency of updates, dimensions, and other information</a></li>
+  <li><a href="#data-issues" id="toc-data-issues" class="nav-link" data-scroll-target="#data-issues"><span class="header-section-number">2.1.3</span> Data issues</a></li>
+  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data"><span class="header-section-number">2.1.4</span> Importing the data</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources"><span class="header-section-number">2.1.5</span> Data sources</a></li>
   </ul></li>
   <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a>
   <ul class="collapse">
-  <li><a href="#load-necessary-libraries" id="toc-load-necessary-libraries" class="nav-link" data-scroll-target="#load-necessary-libraries"><span class="header-section-number">2.2.1</span> Load necessary libraries</a></li>
-  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="header-section-number">2.2.2</span> Load data</a></li>
-  <li><a href="#prepare-data-for-missing-values-plot" id="toc-prepare-data-for-missing-values-plot" class="nav-link" data-scroll-target="#prepare-data-for-missing-values-plot"><span class="header-section-number">2.2.3</span> Prepare data for missing values plot</a></li>
-  <li><a href="#missing-values-for-each-table" id="toc-missing-values-for-each-table" class="nav-link" data-scroll-target="#missing-values-for-each-table"><span class="header-section-number">2.2.4</span> Missing values for each table</a></li>
+  <li><a href="#table-11.1" id="toc-table-11.1" class="nav-link" data-scroll-target="#table-11.1"><span class="header-section-number">2.2.1</span> Table 11.1</a></li>
+  <li><a href="#table-11.2" id="toc-table-11.2" class="nav-link" data-scroll-target="#table-11.2"><span class="header-section-number">2.2.2</span> Table 11.2</a></li>
+  <li><a href="#table-11.4" id="toc-table-11.4" class="nav-link" data-scroll-target="#table-11.4"><span class="header-section-number">2.2.3</span> Table 11.4</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/mollyverhaaren/energy.git/edit/main/data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mollyverhaaren/energy.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -229,8 +228,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="how-are-the-data-collected-and-by-whom"><span class="header-section-number">2.1.1</span> How are the data collected and by whom?</h3>
 <p>We will be using datasets from the U.S. Energy Information Administration (EIA), an agency within the U.S. Department of Energy. The role of the agency is to collect, analyze, and provide access to energy information to the public, industry stakeholders, and policymakers. EIA data is collected through monitoring systems, surveys, and collaboration with industry, state, and federal agencies.</p>
 </section>
-<section id="format-of-the-data-the-frequency-of-updates-dimensions-and-any-other-relevant-information" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="format-of-the-data-the-frequency-of-updates-dimensions-and-any-other-relevant-information"><span class="header-section-number">2.1.2</span> Format of the data, the frequency of updates, dimensions, and any other relevant information:</h3>
+<section id="data-format-frequency-of-updates-dimensions-and-other-information" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="data-format-frequency-of-updates-dimensions-and-other-information"><span class="header-section-number">2.1.2</span> Data format, frequency of updates, dimensions, and other information</h3>
 <p>We will be using 3 different tables posted on the EIA website with data presented in HTML table format that contains grid reliability metrics of the U.S. Distribution system. These tables are updated annually with the latest data available through 2023. These tables include the following:</p>
 <ul>
 <li>Year: from 2013 to 2023</li>
@@ -248,21 +247,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="data-issues" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="data-issues"><span class="header-section-number">2.1.3</span> Data issues:</h3>
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="data-issues"><span class="header-section-number">2.1.3</span> Data issues</h3>
 <ul>
 <li>Since all data sources used are only at the state level, we will manually create ISO groupings when exploring the second question of our analysis</li>
 <li>We will assume that hydroelectric and nuclear energy provide stable enough renewable integration to be negligible when studying grid reliability, so we will consider only wind and solar throughout our analysis</li>
 </ul>
 </section>
 <section id="importing-the-data" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="importing-the-data"><span class="header-section-number">2.1.4</span> Importing the data:</h3>
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="importing-the-data"><span class="header-section-number">2.1.4</span> Importing the data</h3>
 <ul>
 <li>The HTML EIA-861 tables can be copy and pasted into Excel documents and the data can be imported into R as a csv.</li>
 <li>The Excel EIA-860 document can be imported into R as a csv.</li>
 </ul>
 </section>
 <section id="data-sources" class="level3" data-number="2.1.5">
-<h3 data-number="2.1.5" class="anchored" data-anchor-id="data-sources"><span class="header-section-number">2.1.5</span> Data sources:</h3>
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="data-sources"><span class="header-section-number">2.1.5</span> Data sources</h3>
 <p><strong>Reliability Metrics of U.S. Distribution System (EIA-861): </strong></p>
 <ul>
 <li><a href="https://www.eia.gov/electricity/annual/html/epa_11_01.html">Reliability Metrics of US Distribution System</a></li>
@@ -283,114 +282,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
-<section id="load-necessary-libraries" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="load-necessary-libraries"><span class="header-section-number">2.2.1</span> Load necessary libraries</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(ggplot2))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(readr))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(ggplot2))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(readr))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'Table1.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'Table2.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>data4 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'Table4.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data for missing values plot</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>data1_plot <span class="ot">&lt;-</span> data1 <span class="sc">|&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Year) <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Missing =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(value), <span class="st">'Yes'</span>, <span class="st">'No'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.character</span>(Year))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>data2_plot <span class="ot">&lt;-</span> data2 <span class="sc">|&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>State) <span class="sc">|&gt;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Missing =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(value), <span class="st">'Yes'</span>, <span class="st">'No'</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>data4_plot <span class="ot">&lt;-</span> data4 <span class="sc">|&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>State) <span class="sc">|&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Missing =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(value), <span class="st">'Yes'</span>, <span class="st">'No'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="load-data" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="load-data"><span class="header-section-number">2.2.2</span> Load data</h3>
+<section id="table-11.1" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="table-11.1"><span class="header-section-number">2.2.1</span> Table 11.1</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'Table1.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'Table2.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data4 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'Table4.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-<section id="prepare-data-for-missing-values-plot" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="prepare-data-for-missing-values-plot"><span class="header-section-number">2.2.3</span> Prepare data for missing values plot</h3>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data1_plot <span class="ot">&lt;-</span> data1 <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Year) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Missing =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(value), <span class="st">'Yes'</span>, <span class="st">'No'</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.character</span>(Year))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>data2_plot <span class="ot">&lt;-</span> data2 <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>State) <span class="sc">|&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Missing =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(value), <span class="st">'Yes'</span>, <span class="st">'No'</span>))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>data4_plot <span class="ot">&lt;-</span> data4 <span class="sc">|&gt;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>State) <span class="sc">|&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Missing =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(value), <span class="st">'Yes'</span>, <span class="st">'No'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-<section id="missing-values-for-each-table" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="missing-values-for-each-table"><span class="header-section-number">2.2.4</span> Missing values for each table</h3>
-<section id="table-11.1" class="level4" data-number="2.2.4.1">
-<h4 data-number="2.2.4.1" class="anchored" data-anchor-id="table-11.1"><span class="header-section-number">2.2.4.1</span> Table 11.1</h4>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data1_plot, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> <span class="fu">fct_rev</span>(Year), <span class="at">fill =</span> Missing)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Table 11.1 Missing Values'</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Column'</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Year'</span>) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data1_plot, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> <span class="fu">fct_rev</span>(Year), <span class="at">fill =</span> Missing)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Table 11.1 Missing Values'</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Column'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Year'</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Table 11.1 contains “Reliability Metrics of U.S. Distribution System” by year from 2013 to 2023 for multiple reliability metrics and 2 calculation methods. There are no missing values in this table.</p>
 </section>
-<section id="table-11.2" class="level4" data-number="2.2.4.2">
-<h4 data-number="2.2.4.2" class="anchored" data-anchor-id="table-11.2"><span class="header-section-number">2.2.4.2</span> Table 11.2</h4>
+<section id="table-11.2" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="table-11.2"><span class="header-section-number">2.2.2</span> Table 11.2</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data2_plot, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> <span class="fu">fct_rev</span>(State), <span class="at">fill =</span> Missing)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Table 11.2 Missing Values'</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Column'</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'State'</span>) <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data2_plot, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> <span class="fu">fct_rev</span>(State), <span class="at">fill =</span> Missing)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Table 11.2 Missing Values'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Column'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'State'</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Table 11.2 contains “Reliability Metrics Using IEEE of U.S. Distribution System by State” by year for 2022 to 2023 for multiple reliability metrics. The state of Hawaii is missing values for many of these reliability metrics. Hawaii’s grid operates very differently to other states’ grids so we will choose to exclude Hawaii in our analysis, and rather focus on the continental United States (all states excluding Hawaii). All other states have no missing data in this table.</p>
 </section>
-<section id="table-11.4" class="level4" data-number="2.2.4.3">
-<h4 data-number="2.2.4.3" class="anchored" data-anchor-id="table-11.4"><span class="header-section-number">2.2.4.3</span> Table 11.4</h4>
+<section id="table-11.4" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="table-11.4"><span class="header-section-number">2.2.3</span> Table 11.4</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data4_plot, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> <span class="fu">fct_rev</span>(State), <span class="at">fill =</span> Missing)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Table 11.2 Missing Values'</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Column'</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'State'</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data4_plot, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> <span class="fu">fct_rev</span>(State), <span class="at">fill =</span> Missing)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Table 11.2 Missing Values'</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Column'</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'State'</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="2304"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="2304"></p>
 </figure>
 </div>
 </div>
@@ -398,7 +381,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Table 11.4 contains “SAIDI Values (Minutes Per Year) of U.S. Distribution System by State, 2013 - 2023” (SAIDI is one specific reliability metric). The state of Hawaii is again missing values for many years of data.We will again choose to exclude Hawaii in our analysis, and rather focus on the continental United States (all states excluding Hawaii). Nevada is missing data for the SAIDI value calculated with “Loss of Supply Removed” in 2014. We are planning on using SAIDI metrics that include “All Events” rather than the “Loss of Supply Removed”, so this missing value does not cause any issues. All other states have no missing data in this table.</p>
 
 
-</section>
 </section>
 </section>
 
