@@ -144,8 +144,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#how-to-interact-with-this-graph" id="toc-how-to-interact-with-this-graph" class="nav-link active" data-scroll-target="#how-to-interact-with-this-graph"><span class="header-section-number">4.1</span> How to interact with this graph:</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/mollyverhaaren/energy.git/edit/main/d3graph.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mollyverhaaren/energy.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -169,8 +175,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>EXPLAIN - one of the biggest dangers to the grid is extreme weather events, need to build the future of the energy system to be resilient to climate!</p>
+<p>Our exploration of the EIA’s data regarding renewable energy integration and grid outages reveals the effect of extreme weather events on electricity outages, highlighting one of the biggest dangers to the grid: the increasing frequency and intensity of these events. From severe storms to wildfires and hurricanes, extreme weather poses a significant threat to the stability and reliability of our energy infrastructure. To address this challenge, the future of the energy system must prioritize resilience, ensuring that grids are robust enough to withstand and adapt to these growing risks.</p>
 <p>The National Centers For Environmental Information and <a href="https://www.ncei.noaa.gov/access/billions/events/US/1990-2024?disasters%5B%5D=all-disasters">NOAA</a> have a database of weather and climate disasters, and they keep track of the ones that caused damages over $1 billion.</p>
+<section id="how-to-interact-with-this-graph" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="how-to-interact-with-this-graph"><span class="header-section-number">4.1</span> How to interact with this graph:</h2>
 <p>To explore this data and to discover the trend in the frequency of these events, click through the checkboxes below to unveil the number of each of these climate disasters where overall damages/costs reached or exceeded $1 billion.</p>
 <style>
   * {
@@ -207,9 +215,10 @@ Billion-Dollar Weather and Climate Disasters
 </div>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="scripts/myscript.js"></script>
-<p>Explain some more of what we observe with this data (severe storm has the highest upward trend), cumulative effect of these disasters is most interesting</p>
+<p>When all disaster types are selected, the most notable trend is the significant rise in severe storms, which show the highest upward trajectory among all disaster types. The cumulative impact of these disasters is particularly striking, as the total number of events has steadily grown, especially since the mid-2000s. This pattern highlights a concerning escalation in the frequency of these costly weather events, emphasizing the need for robust climate resilience of the U.S. electricity grid.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -652,7 +661,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/mollyverhaaren/energy.git/edit/main/d3graph.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mollyverhaaren/energy.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mollyverhaaren/energy.git/edit/main/d3graph.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mollyverhaaren/energy.git/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
